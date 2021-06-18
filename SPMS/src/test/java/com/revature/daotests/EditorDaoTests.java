@@ -15,7 +15,7 @@ public class EditorDaoTests {
 	@Test
 	public void registerEditorTest() {
 		Editor e = new Editor("CoolEditor", "pw", "Cool", "Editor", "Assistant");
-		edao.addEditor(e);
+		edao.add(e);
 		System.out.println(e.getId());
 		assertNotEquals(null, e.getId());
 	}

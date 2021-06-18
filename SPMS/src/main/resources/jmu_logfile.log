@@ -1,0 +1,99 @@
+INFO  | 2021-06-18 00:15:07 | [main] hibernate.Version (Version.java:44) - HHH000412: Hibernate ORM core version 5.5.2.Final
+INFO  | 2021-06-18 00:15:07 | [main] java.JavaReflectionManager (JavaReflectionManager.java:56) - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+WARN  | 2021-06-18 00:15:07 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:72) - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+INFO  | 2021-06-18 00:15:07 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:115) - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://database-1.cbb6txlvyz4r.us-east-2.rds.amazonaws.com:5432/postgres]
+INFO  | 2021-06-18 00:15:07 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:124) - HHH10001001: Connection properties: {password=****, user=seth}
+INFO  | 2021-06-18 00:15:07 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:129) - HHH10001003: Autocommit mode: false
+INFO  | 2021-06-18 00:15:07 | [main] internal.DriverManagerConnectionProviderImpl$PooledConnections (DriverManagerConnectionProviderImpl.java:274) - HHH000115: Hibernate connection pool size: 20 (min=1)
+INFO  | 2021-06-18 00:15:08 | [main] dialect.Dialect (Dialect.java:175) - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+INFO  | 2021-06-18 00:15:08 | [main] internal.JtaPlatformInitiator (JtaPlatformInitiator.java:52) - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+INFO  | 2021-06-18 00:21:21 | [main] hibernate.Version (Version.java:44) - HHH000412: Hibernate ORM core version 5.5.2.Final
+INFO  | 2021-06-18 00:21:22 | [main] java.JavaReflectionManager (JavaReflectionManager.java:56) - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+WARN  | 2021-06-18 00:21:22 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:72) - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+INFO  | 2021-06-18 00:21:22 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:115) - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://database-1.cbb6txlvyz4r.us-east-2.rds.amazonaws.com:5432/postgres]
+INFO  | 2021-06-18 00:21:22 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:124) - HHH10001001: Connection properties: {password=****, user=seth}
+INFO  | 2021-06-18 00:21:22 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:129) - HHH10001003: Autocommit mode: false
+INFO  | 2021-06-18 00:21:22 | [main] internal.DriverManagerConnectionProviderImpl$PooledConnections (DriverManagerConnectionProviderImpl.java:274) - HHH000115: Hibernate connection pool size: 20 (min=1)
+INFO  | 2021-06-18 00:21:22 | [main] dialect.Dialect (Dialect.java:175) - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+INFO  | 2021-06-18 00:21:22 | [main] internal.JtaPlatformInitiator (JtaPlatformInitiator.java:52) - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+WARN  | 2021-06-18 00:21:23 | [main] spi.SqlExceptionHelper (SqlExceptionHelper.java:137) - SQL Error: 0, SQLState: 23502
+ERROR | 2021-06-18 00:21:23 | [main] spi.SqlExceptionHelper (SqlExceptionHelper.java:142) - ERROR: null value in column "status" violates not-null constraint
+  Detail: Failing row contains (4, seth, knox, 1, temp, 2021-06-18, article, mystery, tag, desc, draft, null, null, null, null, null, null, null, null, null, null, f).
+INFO  | 2021-06-18 00:24:48 | [main] hibernate.Version (Version.java:44) - HHH000412: Hibernate ORM core version 5.5.2.Final
+INFO  | 2021-06-18 00:24:48 | [main] java.JavaReflectionManager (JavaReflectionManager.java:56) - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+WARN  | 2021-06-18 00:24:48 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:72) - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+INFO  | 2021-06-18 00:24:48 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:115) - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://database-1.cbb6txlvyz4r.us-east-2.rds.amazonaws.com:5432/postgres]
+INFO  | 2021-06-18 00:24:48 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:124) - HHH10001001: Connection properties: {password=****, user=seth}
+INFO  | 2021-06-18 00:24:48 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:129) - HHH10001003: Autocommit mode: false
+INFO  | 2021-06-18 00:24:48 | [main] internal.DriverManagerConnectionProviderImpl$PooledConnections (DriverManagerConnectionProviderImpl.java:274) - HHH000115: Hibernate connection pool size: 20 (min=1)
+INFO  | 2021-06-18 00:24:48 | [main] dialect.Dialect (Dialect.java:175) - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+INFO  | 2021-06-18 00:24:49 | [main] internal.JtaPlatformInitiator (JtaPlatformInitiator.java:52) - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+INFO  | 2021-06-18 09:03:06 | [main] hibernate.Version (Version.java:44) - HHH000412: Hibernate ORM core version 5.5.2.Final
+INFO  | 2021-06-18 09:03:06 | [main] java.JavaReflectionManager (JavaReflectionManager.java:56) - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+WARN  | 2021-06-18 09:03:06 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:72) - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+INFO  | 2021-06-18 09:03:06 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:115) - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://database-1.cbb6txlvyz4r.us-east-2.rds.amazonaws.com:5432/postgres]
+INFO  | 2021-06-18 09:03:06 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:124) - HHH10001001: Connection properties: {password=****, user=seth}
+INFO  | 2021-06-18 09:03:06 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:129) - HHH10001003: Autocommit mode: false
+INFO  | 2021-06-18 09:03:06 | [main] internal.DriverManagerConnectionProviderImpl$PooledConnections (DriverManagerConnectionProviderImpl.java:274) - HHH000115: Hibernate connection pool size: 20 (min=1)
+INFO  | 2021-06-18 09:03:06 | [main] dialect.Dialect (Dialect.java:175) - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+INFO  | 2021-06-18 09:03:07 | [main] internal.JtaPlatformInitiator (JtaPlatformInitiator.java:52) - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+INFO  | 2021-06-18 09:03:23 | [main] hibernate.Version (Version.java:44) - HHH000412: Hibernate ORM core version 5.5.2.Final
+INFO  | 2021-06-18 09:03:23 | [main] java.JavaReflectionManager (JavaReflectionManager.java:56) - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+WARN  | 2021-06-18 09:03:23 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:72) - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+INFO  | 2021-06-18 09:03:23 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:115) - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://database-1.cbb6txlvyz4r.us-east-2.rds.amazonaws.com:5432/postgres]
+INFO  | 2021-06-18 09:03:23 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:124) - HHH10001001: Connection properties: {password=****, user=seth}
+INFO  | 2021-06-18 09:03:23 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:129) - HHH10001003: Autocommit mode: false
+INFO  | 2021-06-18 09:03:23 | [main] internal.DriverManagerConnectionProviderImpl$PooledConnections (DriverManagerConnectionProviderImpl.java:274) - HHH000115: Hibernate connection pool size: 20 (min=1)
+INFO  | 2021-06-18 09:03:23 | [main] dialect.Dialect (Dialect.java:175) - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+INFO  | 2021-06-18 09:03:24 | [main] internal.JtaPlatformInitiator (JtaPlatformInitiator.java:52) - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+INFO  | 2021-06-18 09:03:40 | [main] hibernate.Version (Version.java:44) - HHH000412: Hibernate ORM core version 5.5.2.Final
+INFO  | 2021-06-18 09:03:40 | [main] java.JavaReflectionManager (JavaReflectionManager.java:56) - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+WARN  | 2021-06-18 09:03:40 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:72) - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+INFO  | 2021-06-18 09:03:40 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:115) - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://database-1.cbb6txlvyz4r.us-east-2.rds.amazonaws.com:5432/postgres]
+INFO  | 2021-06-18 09:03:40 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:124) - HHH10001001: Connection properties: {password=****, user=seth}
+INFO  | 2021-06-18 09:03:40 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:129) - HHH10001003: Autocommit mode: false
+INFO  | 2021-06-18 09:03:40 | [main] internal.DriverManagerConnectionProviderImpl$PooledConnections (DriverManagerConnectionProviderImpl.java:274) - HHH000115: Hibernate connection pool size: 20 (min=1)
+INFO  | 2021-06-18 09:03:40 | [main] dialect.Dialect (Dialect.java:175) - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+INFO  | 2021-06-18 09:03:41 | [main] internal.JtaPlatformInitiator (JtaPlatformInitiator.java:52) - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+INFO  | 2021-06-18 10:09:10 | [main] hibernate.Version (Version.java:44) - HHH000412: Hibernate ORM core version 5.5.2.Final
+INFO  | 2021-06-18 10:09:11 | [main] java.JavaReflectionManager (JavaReflectionManager.java:56) - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+WARN  | 2021-06-18 10:09:11 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:72) - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+INFO  | 2021-06-18 10:09:11 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:115) - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://database-1.cbb6txlvyz4r.us-east-2.rds.amazonaws.com:5432/postgres]
+INFO  | 2021-06-18 10:09:11 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:124) - HHH10001001: Connection properties: {password=****, user=seth}
+INFO  | 2021-06-18 10:09:11 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:129) - HHH10001003: Autocommit mode: false
+INFO  | 2021-06-18 10:09:11 | [main] internal.DriverManagerConnectionProviderImpl$PooledConnections (DriverManagerConnectionProviderImpl.java:274) - HHH000115: Hibernate connection pool size: 20 (min=1)
+INFO  | 2021-06-18 10:09:11 | [main] dialect.Dialect (Dialect.java:175) - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+INFO  | 2021-06-18 10:09:11 | [main] internal.JtaPlatformInitiator (JtaPlatformInitiator.java:52) - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+WARN  | 2021-06-18 10:09:12 | [main] spi.SqlExceptionHelper (SqlExceptionHelper.java:137) - SQL Error: 0, SQLState: 23503
+ERROR | 2021-06-18 10:09:12 | [main] spi.SqlExceptionHelper (SqlExceptionHelper.java:142) - ERROR: insert or update on table "spforms" violates foreign key constraint "ae_id_fk"
+  Detail: Key (ae_id)=(0) is not present in table "editors".
+INFO  | 2021-06-18 10:09:26 | [main] hibernate.Version (Version.java:44) - HHH000412: Hibernate ORM core version 5.5.2.Final
+INFO  | 2021-06-18 10:09:26 | [main] java.JavaReflectionManager (JavaReflectionManager.java:56) - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+WARN  | 2021-06-18 10:09:26 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:72) - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+INFO  | 2021-06-18 10:09:26 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:115) - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://database-1.cbb6txlvyz4r.us-east-2.rds.amazonaws.com:5432/postgres]
+INFO  | 2021-06-18 10:09:26 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:124) - HHH10001001: Connection properties: {password=****, user=seth}
+INFO  | 2021-06-18 10:09:26 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:129) - HHH10001003: Autocommit mode: false
+INFO  | 2021-06-18 10:09:26 | [main] internal.DriverManagerConnectionProviderImpl$PooledConnections (DriverManagerConnectionProviderImpl.java:274) - HHH000115: Hibernate connection pool size: 20 (min=1)
+INFO  | 2021-06-18 10:09:27 | [main] dialect.Dialect (Dialect.java:175) - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+INFO  | 2021-06-18 10:09:27 | [main] internal.JtaPlatformInitiator (JtaPlatformInitiator.java:52) - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+WARN  | 2021-06-18 10:09:27 | [main] spi.SqlExceptionHelper (SqlExceptionHelper.java:137) - SQL Error: 0, SQLState: 23503
+ERROR | 2021-06-18 10:09:27 | [main] spi.SqlExceptionHelper (SqlExceptionHelper.java:142) - ERROR: insert or update on table "spforms" violates foreign key constraint "ae_id_fk"
+  Detail: Key (ae_id)=(0) is not present in table "editors".
+INFO  | 2021-06-18 10:11:38 | [main] hibernate.Version (Version.java:44) - HHH000412: Hibernate ORM core version 5.5.2.Final
+INFO  | 2021-06-18 10:11:38 | [main] java.JavaReflectionManager (JavaReflectionManager.java:56) - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+WARN  | 2021-06-18 10:11:38 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:72) - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+INFO  | 2021-06-18 10:11:38 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:115) - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://database-1.cbb6txlvyz4r.us-east-2.rds.amazonaws.com:5432/postgres]
+INFO  | 2021-06-18 10:11:38 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:124) - HHH10001001: Connection properties: {password=****, user=seth}
+INFO  | 2021-06-18 10:11:38 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:129) - HHH10001003: Autocommit mode: false
+INFO  | 2021-06-18 10:11:38 | [main] internal.DriverManagerConnectionProviderImpl$PooledConnections (DriverManagerConnectionProviderImpl.java:274) - HHH000115: Hibernate connection pool size: 20 (min=1)
+INFO  | 2021-06-18 10:11:39 | [main] dialect.Dialect (Dialect.java:175) - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+INFO  | 2021-06-18 10:11:39 | [main] internal.JtaPlatformInitiator (JtaPlatformInitiator.java:52) - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+INFO  | 2021-06-18 10:12:00 | [main] hibernate.Version (Version.java:44) - HHH000412: Hibernate ORM core version 5.5.2.Final
+INFO  | 2021-06-18 10:12:00 | [main] java.JavaReflectionManager (JavaReflectionManager.java:56) - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+WARN  | 2021-06-18 10:12:00 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:72) - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+INFO  | 2021-06-18 10:12:00 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:115) - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://database-1.cbb6txlvyz4r.us-east-2.rds.amazonaws.com:5432/postgres]
+INFO  | 2021-06-18 10:12:00 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:124) - HHH10001001: Connection properties: {password=****, user=seth}
+INFO  | 2021-06-18 10:12:00 | [main] internal.DriverManagerConnectionProviderImpl (DriverManagerConnectionProviderImpl.java:129) - HHH10001003: Autocommit mode: false
+INFO  | 2021-06-18 10:12:00 | [main] internal.DriverManagerConnectionProviderImpl$PooledConnections (DriverManagerConnectionProviderImpl.java:274) - HHH000115: Hibernate connection pool size: 20 (min=1)
+INFO  | 2021-06-18 10:12:01 | [main] dialect.Dialect (Dialect.java:175) - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+INFO  | 2021-06-18 10:12:01 | [main] internal.JtaPlatformInitiator (JtaPlatformInitiator.java:52) - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]

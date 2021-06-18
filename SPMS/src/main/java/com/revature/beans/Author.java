@@ -1,10 +1,18 @@
 package com.revature.beans;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity(name="authors")
+@Table(name="project1.authors")
 public class Author {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String username;
 	private String password;
@@ -12,7 +20,6 @@ public class Author {
 	private String last;
 	private Integer points;
 	
-	private List<SPForm> forms = new ArrayList<SPForm>();
 	
 	public Author() {}
 	public Author(String username, String password, String first, String last) {
@@ -58,18 +65,11 @@ public class Author {
 	public void setPoints(Integer points) {
 		this.points = points;
 	}
-	public List<SPForm> getForms() {
-		return forms;
-	}
-	public void setForms(List<SPForm> forms) {
-		this.forms = forms;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((first == null) ? 0 : first.hashCode());
-		result = prime * result + ((forms == null) ? 0 : forms.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((last == null) ? 0 : last.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
@@ -90,11 +90,6 @@ public class Author {
 			if (other.first != null)
 				return false;
 		} else if (!first.equals(other.first))
-			return false;
-		if (forms == null) {
-			if (other.forms != null)
-				return false;
-		} else if (!forms.equals(other.forms))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -126,8 +121,10 @@ public class Author {
 	@Override
 	public String toString() {
 		return "Author [id=" + id + ", username=" + username + ", password=" + password + ", first=" + first + ", last="
-				+ last + ", points=" + points + ", forms=" + forms + "]";
+				+ last + ", points=" + points + "]";
 	}
+
+	
 	
 	
 }

@@ -2,36 +2,91 @@ package com.revature.beans;
 
 import java.sql.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity(name="spforms")
+@Table(name="project1.spforms")
 public class SPForm {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String author_first;
 	private String author_last;
-	private Integer author_id;
+	@ManyToOne(targetEntity = Author.class)
+	@JoinColumn(name="author_id", referencedColumnName = "id")
+	private Author author_id;
 	private String title;
 	private Date end_date;
-	private String story_type;
-	private String genre;
+	@ManyToOne(targetEntity = Story.class)
+	@JoinColumn(name="story_type", referencedColumnName = "type")
+	private Story story_type;
+	@ManyToOne(targetEntity = Genre.class)
+	@JoinColumn(name="genre", referencedColumnName = "name")
+	private Genre genre;
 	private String tag_line;
 	private String description;
 	private String draft;
-	
+	// user input above
 	private String status;
 	private Date submit_date;
 	private String priority;
-	private Integer ae_id;
+	@ManyToOne(targetEntity = Editor.class)
+	@JoinColumn(name="ae_id", referencedColumnName="id")
+	private Editor ae_id;
 	private String ae_approval;
-	private Integer ge_id;
+	@ManyToOne(targetEntity = Editor.class)
+	@JoinColumn(name="ge_id", referencedColumnName="id")
+	private Editor ge_id;
 	private String ge_approval;
-	private Integer se_id;
+	@ManyToOne(targetEntity = Editor.class)
+	@JoinColumn(name="se_id", referencedColumnName="id")
+	private Editor se_id;
 	private String se_approval;
 	private String denial_reason;
 	private boolean se_edit;
 	
 	public SPForm() {}
-	public SPForm(String first, String last, Integer author_id,
-			String title, Date end_date, String story_type, String genre,
-			String tag_line, String description, String draft) {
+	
+	public SPForm(Integer id, String author_first, String author_last, Author author_id, String title, Date end_date,
+			Story story_type, Genre genre, String tag_line, String description, String draft, String status,
+			Date submit_date, String priority, Editor ae_id, String ae_approval, Editor ge_id, String ge_approval,
+			Editor se_id, String se_approval, String denial_reason, boolean se_edit) {
+		super();
+		this.id = id;
+		this.author_first = author_first;
+		this.author_last = author_last;
+		this.author_id = author_id;
+		this.title = title;
+		this.end_date = end_date;
+		this.story_type = story_type;
+		this.genre = genre;
+		this.tag_line = tag_line;
+		this.description = description;
+		this.draft = draft;
+		this.status = status;
+		this.submit_date = submit_date;
+		this.priority = priority;
+		this.ae_id = ae_id;
+		this.ae_approval = ae_approval;
+		this.ge_id = ge_id;
+		this.ge_approval = ge_approval;
+		this.se_id = se_id;
+		this.se_approval = se_approval;
+		this.denial_reason = denial_reason;
+		this.se_edit = se_edit;
+	}
+	
+	public SPForm(String first, String last, Author author_id,
+			String title, Date end_date, Story story_type, Genre genre,
+			String tag_line, String description) {
 		this.author_first = first;
 		this.author_last = last;
 		this.author_id = author_id;
@@ -41,8 +96,23 @@ public class SPForm {
 		this.genre = genre;
 		this.tag_line = tag_line;
 		this.description = description;
-		this.draft = draft;
+		this.draft = "";
+		this.status = "on hold";
+		this.submit_date = new Date(System.currentTimeMillis());
+		this.priority = "low";
+		Editor e = new Editor();
+		e.setId(1);
+		this.ae_id = e;
+		this.ae_approval = "pending";
+		this.ge_id = e;
+		this.ge_approval = "pending";
+		this.se_id = e;
+		this.se_approval = "pending";
+		this.denial_reason = "";
+		this.se_edit = false;
 	}
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -61,10 +131,10 @@ public class SPForm {
 	public void setAuthor_last(String author_last) {
 		this.author_last = author_last;
 	}
-	public Integer getAuthor_id() {
+	public Author getAuthor_id() {
 		return author_id;
 	}
-	public void setAuthor_id(Integer author_id) {
+	public void setAuthor_id(Author author_id) {
 		this.author_id = author_id;
 	}
 	public String getTitle() {
@@ -79,16 +149,16 @@ public class SPForm {
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
-	public String getStory_type() {
+	public Story getStory_type() {
 		return story_type;
 	}
-	public void setStory_type(String story_type) {
+	public void setStory_type(Story story_type) {
 		this.story_type = story_type;
 	}
-	public String getGenre() {
+	public Genre getGenre() {
 		return genre;
 	}
-	public void setGenre(String genre) {
+	public void setGenre(Genre genre) {
 		this.genre = genre;
 	}
 	public String getTag_line() {
@@ -127,10 +197,10 @@ public class SPForm {
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
-	public Integer getAe_id() {
+	public Editor getAe_id() {
 		return ae_id;
 	}
-	public void setAe_id(Integer ae_id) {
+	public void setAe_id(Editor ae_id) {
 		this.ae_id = ae_id;
 	}
 	public String getAe_approval() {
@@ -139,10 +209,10 @@ public class SPForm {
 	public void setAe_approval(String ae_approval) {
 		this.ae_approval = ae_approval;
 	}
-	public Integer getGe_id() {
+	public Editor getGe_id() {
 		return ge_id;
 	}
-	public void setGe_id(Integer ge_id) {
+	public void setGe_id(Editor ge_id) {
 		this.ge_id = ge_id;
 	}
 	public String getGe_approval() {
@@ -151,10 +221,10 @@ public class SPForm {
 	public void setGe_approval(String ge_approval) {
 		this.ge_approval = ge_approval;
 	}
-	public Integer getSe_id() {
+	public Editor getSe_id() {
 		return se_id;
 	}
-	public void setSe_id(Integer se_id) {
+	public void setSe_id(Editor se_id) {
 		this.se_id = se_id;
 	}
 	public String getSe_approval() {
@@ -321,13 +391,19 @@ public class SPForm {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "SPForm [id=" + id + ", author_first=" + author_first + ", author_last=" + author_last + ", author_id="
 				+ author_id + ", title=" + title + ", end_date=" + end_date + ", story_type=" + story_type + ", genre="
 				+ genre + ", tag_line=" + tag_line + ", description=" + description + ", draft=" + draft + ", status="
-				+ status + "]";
+				+ status + ", submit_date=" + submit_date + ", priority=" + priority + ", ae_id=" + ae_id
+				+ ", ae_approval=" + ae_approval + ", ge_id=" + ge_id + ", ge_approval=" + ge_approval + ", se_id="
+				+ se_id + ", se_approval=" + se_approval + ", denial_reason=" + denial_reason + ", se_edit=" + se_edit
+				+ "]";
 	}
+	
+	
 	
 	
 }

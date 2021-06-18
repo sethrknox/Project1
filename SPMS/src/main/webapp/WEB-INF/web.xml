@@ -34,14 +34,15 @@
 		<servlet-name>Author</servlet-name>
 		<url-pattern>/author/*</url-pattern>
 	</servlet-mapping>
-	
+	 
 	<servlet-mapping>
 		<servlet-name>Editor</servlet-name>
-		<url-pattern>/editor</url-pattern>
+		<url-pattern>/editor/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>SPForm</servlet-name>
-		<url-pattern>/spform</url-pattern>
+		<url-pattern>/spform/*</url-pattern>
 	</servlet-mapping>
+	
 </web-app>

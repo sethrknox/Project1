@@ -40,20 +40,34 @@ public class AuthorServlet extends HttpServlet{
 			un = request.getParameter("username");
 			pw = request.getParameter("password");
 			System.out.println(un +" "+ pw);
-			
+			System.out.println(session.getAttribute("username"));
 			Author a = adao.getAuthor(un, pw);
 			if (a != null) { // logged in
 				session.setAttribute("username", un);
 				session.setAttribute("password", pw);
 				session.setAttribute("first", a.getFirst());
 				session.setAttribute("last", a.getLast());
-				
+				session.setAttribute("id", a.getId());
 			}
 			//response.sendRedirect("http://localhost:8080/SPMS/author.html");
 			response.getWriter().append(gson.toJson(a));
-			response.getWriter().append("author.html");
-			
+			//response.getWriter().append("author.html");
+			System.out.println("End of Author login");
 			break;
+		}
+		case "/SPMS/author/logout": {
+			session.invalidate();
+			break;
+		}
+		case "/SPMS/author/viewforms": {
+			System.out.println("Getting author's forms");
+			un = (String) session.getAttribute("username");
+			pw = (String) session.getAttribute("password");
+			
+		}
+		default: {
+			System.out.println("Author default");
+			response.sendError(418, "Not implemented yet.");
 		}
 		}
 		

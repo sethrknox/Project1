@@ -14,8 +14,8 @@ public class AuthorDaoTests {
 	
 	@Test
 	public void registerAuthorTest() {
-		Author a = new Author("sethk", "pass", "Seth", "Knox");
-		adao.addAuthor(a);
+		Author a = new Author("test", "pass", "First", "Last");
+		adao.add(a);
 		System.out.println(a.getId());
 		assertNotEquals(null, a.getId());
 	}
@@ -35,5 +35,8 @@ public class AuthorDaoTests {
 		assertEquals(true, check);
 	}
 	
-	
+	@Test
+	public void authorGetByIdTest() {
+		System.out.println(adao.getById(1));
+	}
 }

@@ -2,9 +2,9 @@ package com.revature.daos;
 
 import com.revature.beans.Editor;
 
-public interface EditorDAO {
+public interface EditorDAO extends GenericDAO<Editor>{
 
-	public void addEditor(Editor e);
+	//public void addEditor(Editor e);
 	public Editor getEditor(String username, String password);
 	public boolean usernameExists(String username);
 }

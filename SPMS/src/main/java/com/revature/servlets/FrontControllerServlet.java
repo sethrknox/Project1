@@ -26,32 +26,23 @@ public class FrontControllerServlet extends HttpServlet {
 		//response.getWriter().append("\n" + uri);
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("loggedInUser", "{'username':'seth','password':'potato'}");
+		//session.setAttribute("loggedInUser", "{'username':'seth','password':'potato'}");
 		
-		System.out.println(session.getAttribute("loggedInUser"));
+		//System.out.println(session.getAttribute("loggedInUser"));
 		session.setMaxInactiveInterval(0);
 		
 		switch (uri) {
-//		case "/SPMS/": {
-////			RequestDispatcher rd = request.getRequestDispatcher("index.html");
-////			rd.forward(request,response);
-//			System.out.println("HERE");
-//			response.sendRedirect("src/index.html");
-//			break;
-//		}
 		case "/SPMS/invalidate": {
 			session.invalidate();
 			break;
 		}
-		case "/SPMS/id.do": {
+		case "/SPMS/id": {
 			response.getWriter().append("\n"+session.getId());
 			break;
 		}
-		case "/SPMS/author/login.do": {
+		case "/SPMS/controller/author/login": {
 			System.out.println("calling author servlet");
-			response.sendRedirect("/SPMS/author");
-//			RequestDispatcher rd = request.getRequestDispatcher("/SPMS/author");
-//			rd.forward(request, response);
+			response.sendRedirect("/SPMS/AuthorServlet");
 			break;
 		}
 		default: {
