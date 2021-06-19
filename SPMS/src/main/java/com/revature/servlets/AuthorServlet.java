@@ -48,6 +48,7 @@ public class AuthorServlet extends HttpServlet{
 				session.setAttribute("first", a.getFirst());
 				session.setAttribute("last", a.getLast());
 				session.setAttribute("id", a.getId());
+				session.setAttribute("points", a.getPoints());
 			}
 			//response.sendRedirect("http://localhost:8080/SPMS/author.html");
 			response.getWriter().append(gson.toJson(a));
@@ -63,7 +64,13 @@ public class AuthorServlet extends HttpServlet{
 			System.out.println("Getting author's forms");
 			un = (String) session.getAttribute("username");
 			pw = (String) session.getAttribute("password");
-			
+			break;
+		}
+		case "/SPMS/author/points": {
+			Integer points = (Integer)session.getAttribute("points");
+			response.getWriter().append(gson.toJson(points));
+			System.out.println("Sent points to javascript");
+			break;
 		}
 		default: {
 			System.out.println("Author default");

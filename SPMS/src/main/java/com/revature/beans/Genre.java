@@ -13,6 +13,11 @@ public class Genre {
 	
 	public Genre() {}
 
+	public Genre(String name) {
+		super();
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}

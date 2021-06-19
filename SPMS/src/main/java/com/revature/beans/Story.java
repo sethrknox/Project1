@@ -12,6 +12,11 @@ public class Story {
 	
 	public Story () {}
 
+	public Story(String type) {
+		super();
+		this.type = type;
+	}
+
 	public String getType() {
 		return type;
 	}

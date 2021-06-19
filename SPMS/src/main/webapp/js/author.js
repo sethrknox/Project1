@@ -13,8 +13,8 @@ function viewForms() {
 }
 
 function createForm() {
-    alert("OVER HERE")
-    //window.location.href = "http://localhost:8080/SPMS/authorcreate.html"
+    //alert("OVER HERE")
+    window.location.href = "http://localhost:8080/SPMS/authorcreate.html"
 }
 
 function logout() {
