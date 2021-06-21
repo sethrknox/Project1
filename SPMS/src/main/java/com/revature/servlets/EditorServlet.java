@@ -30,6 +30,7 @@ public class EditorServlet extends HttpServlet{
 		String pw = "";
 		switch (uri) {
 		case "/SPMS/editor/login": {
+			session.setMaxInactiveInterval(0);
 			Editor ed = gson.fromJson(request.getReader(), Editor.class);
 			System.out.println(ed);
 			Editor e = edao.getEditor(ed.getUsername(), ed.getPassword());
@@ -40,21 +41,24 @@ public class EditorServlet extends HttpServlet{
 				session.setAttribute("last", e.getLast());
 				session.setAttribute("id", e.getId());
 				session.setAttribute("type", e.getType());
-				
+				response.getWriter().append(gson.toJson(e));
+			} else {
+				response.getWriter().append(gson.toJson("Login failed."));
 			}
-			System.out.println(e);
-			response.getWriter().append(gson.toJson(e));
+			//System.out.println(e);
+			System.out.println("End of editor login");
 			break;
 		}
 		case "/SPMS/editor/logout": {
 			session.invalidate();
+			String msg = "Logged out";
+			response.getWriter().append(gson.toJson(msg));
 			break;
 		}
-		case "/SPMS/editor/viewforms": {
-			System.out.println("Getting editor's forms");
-			un = (String) session.getAttribute("username");
-			pw = (String) session.getAttribute("password");
-			System.out.println(un +" "+ pw);
+		case "/SPMS/editor/type": {
+			String type = (String)session.getAttribute("type");
+			response.getWriter().append(gson.toJson(type));
+			break;
 		}
 		default: {
 			System.out.println("Editor default");

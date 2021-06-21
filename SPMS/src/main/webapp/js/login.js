@@ -9,41 +9,32 @@ function updateEditorLogin () {
     login("editor")
 }
 function login (user_type) {
-    section = document.getElementById("login_boxes");
 
-    let un = document.createElement('span');
-    let un_tb = document.createElement('input');
-    let pw = document.createElement('span');
-    let pw_tb = document.createElement('input');
-    let login_btn = document.createElement('button')
+    let un = document.getElementById('un');
+    let un_tb = document.getElementById('untb');
+    let pw = document.getElementById('pw');
+    let pw_tb = document.getElementById('pwtb');
+    let login_btn = document.getElementById('login_btn')
     
 
-    un.innerHTML = "Username: "
-    pw.innerHTML = " Password: "
-    un_tb.type = "text"
-    un_tb.id = "un"
-    pw_tb.type = "text"
-    pw_tb.id = "pw"
-    login_btn.id = "login_btn"
-    login_btn.innerHTML = "login"
+    un.style = "display: inline"
+    pw.style = "display: inline"
+    un_tb.style = "display: inline"
+    pw_tb.style = "display: inline"
+    login_btn.style = "display: inline"
+    login_btn.innerHTML = "Login as "+user_type
     if (user_type == "author") {
-        login_btn.onclick = authorLogin;
+        login_btn.onclick = authorFetchLogin;
     }
     if (user_type == "editor") {
         login_btn.onclick = editorFetchLogin;
     }
     
-
-    section.appendChild(un)
-    section.appendChild(un_tb)
-    section.appendChild(pw)
-    section.appendChild(pw_tb)
-    section.appendChild(login_btn)
 }
 
 function authorLogin () {
-    let un = document.getElementById("un").value
-    let pw = document.getElementById("pw").value
+    let un = document.getElementById("untb").value
+    let pw = document.getElementById("pwtb").value
     let url = "http://localhost:8080/SPMS/author/login"
     let params = "?username=" + un + "&password=" + pw
 
@@ -81,8 +72,8 @@ function authorLogin () {
 };
 
 function editorLogin() {
-    let un = document.getElementById("un").value
-    let pw = document.getElementById("pw").value
+    let un = document.getElementById("untb").value
+    let pw = document.getElementById("pwtb").value
     let url = "http://localhost:8080/SPMS/editor/login"
     let params = "?username=" + un + "&password=" + pw
 
@@ -122,8 +113,8 @@ function editorLogin() {
 };
 
 async function editorFetchLogin() {
-    let un = document.getElementById("un").value
-    let pw = document.getElementById("pw").value
+    let un = document.getElementById("untb").value
+    let pw = document.getElementById("pwtb").value
     let url = "http://localhost:8080/SPMS/editor/login"
     let params = "?username=" + un + "&password=" + pw
     let user = {
@@ -147,3 +138,29 @@ async function editorFetchLogin() {
     }
     
 };
+
+async function authorFetchLogin() {
+    let un = document.getElementById("untb").value
+    let pw = document.getElementById("pwtb").value
+    let url = "http://localhost:8080/SPMS/author/login"
+    let params = "?username=" + un + "&password=" + pw
+    let user = {
+        username: un,
+        password: pw
+    };
+    let response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(user)
+    });
+    try {
+        let result = await response.json();
+        console.log(result)
+        window.location.href = "http://localhost:8080/SPMS/author.html"
+    } catch (error) {
+        alert("Invalid username and password")
+        //console.error(error)
+    }
+}

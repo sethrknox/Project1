@@ -6,24 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css"  href="css/index.css">
-    <script src="js/author.js" async></script>
-    <script src="js/authorview.js" async></script>
-    <title>Author</title>
+    <script src="js/editor.js" async></script>
+    <script src="js/editorview_a.js" async></script>
+    <title>Assistant Editor</title>
 </head>
 <body>
     <div class="topnav">
         <button type="button" class="btn" id="hbtn">Home
-        <button type="button" class="btn" id="view_btn">View Forms</button>
-        <button type="button" class="btn" id="create_btn">Create Form</button>
-        <button type="button" class="btn" id="logout_btn" style="">Logout</button>
+        <button type="button" class="btn" id="view_btn">Manage Forms</button>
+        <button type="button" class="btn" id="draft_btn">Manage Drafts</button>
+        <button type="button" class="btn" id="logout_btn">Logout</button>
     </div>
     <input type="hidden" id="username" value="" style="display: none;"/>
     <input type="hidden" id="password" value="" style="display: none;"/>
     
     <h2 id="h2"></h2>
 
-    <div id="form_table">
-        <table style="width:100%">
+    <div id="form_table_div">
+        <table id="form_table" class="table table-bordered">
             <tr>
               <th>First</th>
               <th>Last</th>
@@ -39,16 +39,9 @@
               <th>Assistant Editor Approval</th>
               <th>General Editor Approval</th>
               <th>Senior Editor Approval</th>
-            </tr>
-            <tr>
-              <td>Jill</td>
-              <td>Smith</td>
-              <td>"Poop Story"</td>
-            </tr>
-            <tr>
-              <td>Eve</td>
-              <td>Jackson</td>
-              <td>Potato Man Strikes Again</td>
+              <th>Approve</th>
+              <th>Deny</th>
+              <th>Request more information</th>
             </tr>
           </table>
     </div>

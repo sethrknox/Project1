@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.HibernateException;
@@ -81,7 +82,20 @@ public class AuthorDAOImpl implements AuthorDAO {
 	@Override
 	public void update(Author t) {
 		// TODO Auto-generated method stub
+		Session s = HibernateUtil.getSession();
+		Transaction tx = null;
 		
+		try {
+			tx = s.beginTransaction();
+			s.update(t);
+			tx.commit();
+		} catch (HibernateException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			s.close();
+		}
 	}
 
 	@Override
@@ -153,6 +167,56 @@ public class AuthorDAOImpl implements AuthorDAO {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public void updatePoints(Integer id, Integer cost, Integer curr_points) {
+		// TODO Auto-generated method stub
+		Session s = HibernateUtil.getSession();
+		Transaction tx = null;
+		
+		try {
+			tx = s.beginTransaction();
+			CriteriaBuilder cb = s.getCriteriaBuilder();
+			CriteriaUpdate<Author> cu = cb.createCriteriaUpdate(Author.class);
+			Root<Author> root = cu.from(Author.class);
+			cu.set("points", curr_points - cost);
+			cu.where(cb.equal(root.get("id"), id));
+			
+			s.createQuery(cu).executeUpdate();
+			tx.commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			s.close();
+		}
+	}
+
+	@Override
+	public Integer getPoints(Integer id) {
+		// TODO Auto-generated method stub
+		Integer points = -1;
+		Session s = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = s.beginTransaction();
+			CriteriaBuilder cb = s.getCriteriaBuilder();
+			CriteriaQuery<Author> cq = cb.createQuery(Author.class);
+			Root<Author> root = cq.from(Author.class);
+			cq.select(root).where(cb.equal(root.get("id"), id));
+			
+			Author a = s.createQuery(cq).getSingleResult();
+			points = a.getPoints();
+			tx.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			tx.rollback();
+		} finally {
+			s.close();
+		}
+		return points;
 	}
 
 	

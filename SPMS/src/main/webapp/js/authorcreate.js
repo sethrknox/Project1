@@ -21,6 +21,7 @@ async function populateGenres() {
         genres.add(option)
     }
     getPoints();
+    //updatePoints();
 }
 
 function getPoints() {
@@ -33,12 +34,20 @@ function getPoints() {
     }).then(data => { // got points
         console.log(data);
         let points = document.getElementById("author_points");
-        points.innerHTML = "You have " + data + " author points"
+        if (data == -1) {
+            points.innerHTML = "Error getting points"
+        } else {
+            points.innerHTML = "You have " + data + " author points"
+        }
+        
         points.style.display = "inline";
         document.getElementById("points").value = data;
+        console.log(document.getElementById("points").value);
+        updatePoints();
     }).catch(err => {
         console.log("Error reading data " + err);
     })
+    
 }
 
 function updatePoints() {
@@ -54,36 +63,40 @@ function updatePoints() {
     } else if (type === "article") {
         cost = 10;
     }
-
+    console.log("IN UPDATE POINTS");
+    console.log("points: " + points);
+    console.log("cost: " + cost);
     if (points < cost) {
         document.getElementById("points_notice").style.display = "inline";
+    } else {
+        document.getElementById("points_notice").style.display = "none";
     }
 }
 
 async function submitForm() {
     console.log("submitting form");
     var f = document.getElementById("form")
-    console.log(f.elements);
+    //console.log(f.elements);
     //console.log(f.firstName.value);
     //console.log(f.elements["firstName"].value);
-    console.log(f.elements[0].value);
+    //console.log(f.elements[0].value);
     //var form = JSON.stringify(f.elements)
-    var form = JSON.stringify(f.elements)
-    console.log(form);
-    console.log(form.elements);
+    //var form = JSON.stringify(f.elements)
+    //console.log(form);
+    //console.log(form.elements);
 
     let spform = {}
 
     let formData = new FormData(f)
-    console.log(formData.entries());
+    //console.log(formData.entries());
     for (var [key, value] of formData.entries()) { 
         //console.log(key, value);
         //spform.push({key:value})
         spform[key] = value
       }
-    console.log(spform);
+    //console.log(spform);
     //var formData = JSON.stringify(f.serializeArray())
-    console.log(JSON.stringify(spform));
+    //console.log(JSON.stringify(spform));
     //alert(spform);
 
     let url = "http://localhost:8080/SPMS/spform/submit"
@@ -96,5 +109,6 @@ async function submitForm() {
         body: JSON.stringify(spform)})
     let result = await response.json();
     console.log(result)
-    alert();
+    
+    getPoints();
 }

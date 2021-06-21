@@ -17,6 +17,14 @@ function createForm() {
     window.location.href = "http://localhost:8080/SPMS/authorcreate.html"
 }
 
-function logout() {
-    
+async function logout() {
+    let url = "http://localhost:8080/SPMS/author/logout";
+    let response = await fetch(url,{
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }})
+    let result = await response.json();
+    console.log(result);
+    window.location.href = "http://localhost:8080/SPMS/"
 }

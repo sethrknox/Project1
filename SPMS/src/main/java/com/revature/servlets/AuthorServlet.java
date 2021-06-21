@@ -36,12 +36,13 @@ public class AuthorServlet extends HttpServlet{
 		//List<String> parameterNames = new ArrayList<String>(request.getParameterMap().keySet());
 		switch (uri) {
 		case "/SPMS/author/login": {
-			//System.out.println(parameterNames);
-			un = request.getParameter("username");
-			pw = request.getParameter("password");
-			System.out.println(un +" "+ pw);
-			System.out.println(session.getAttribute("username"));
-			Author a = adao.getAuthor(un, pw);
+			session.setMaxInactiveInterval(0);
+//			un = request.getParameter("username");
+//			pw = request.getParameter("password");
+//			System.out.println(un +" "+ pw);
+//			System.out.println(session.getAttribute("username"));
+			Author au = gson.fromJson(request.getReader(), Author.class);
+			Author a = adao.getAuthor(au.getUsername(), au.getPassword());
 			if (a != null) { // logged in
 				session.setAttribute("username", un);
 				session.setAttribute("password", pw);
@@ -49,27 +50,24 @@ public class AuthorServlet extends HttpServlet{
 				session.setAttribute("last", a.getLast());
 				session.setAttribute("id", a.getId());
 				session.setAttribute("points", a.getPoints());
-			}
-			//response.sendRedirect("http://localhost:8080/SPMS/author.html");
-			response.getWriter().append(gson.toJson(a));
-			//response.getWriter().append("author.html");
+				response.getWriter().append(gson.toJson(a));
+			} else {
+				response.getWriter().append(gson.toJson("Login failed."));
+			}			
 			System.out.println("End of Author login");
 			break;
 		}
 		case "/SPMS/author/logout": {
 			session.invalidate();
-			break;
-		}
-		case "/SPMS/author/viewforms": {
-			System.out.println("Getting author's forms");
-			un = (String) session.getAttribute("username");
-			pw = (String) session.getAttribute("password");
+			String msg = "Logged out";
+			response.getWriter().append(gson.toJson(msg));
 			break;
 		}
 		case "/SPMS/author/points": {
-			Integer points = (Integer)session.getAttribute("points");
+			//Integer points = (Integer)session.getAttribute("points");
+			Integer points = adao.getPoints((Integer)session.getAttribute("id"));
 			response.getWriter().append(gson.toJson(points));
-			System.out.println("Sent points to javascript");
+			System.out.println("Sent points to javascript: " + points);
 			break;
 		}
 		default: {
