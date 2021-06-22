@@ -60,6 +60,11 @@ public class EditorServlet extends HttpServlet{
 			response.getWriter().append(gson.toJson(type));
 			break;
 		}
+		case "/SPMS/editor/id": {
+			Integer id = (Integer)session.getAttribute("id");
+			response.getWriter().append(gson.toJson(id));
+			break;
+		}
 		default: {
 			System.out.println("Editor default");
 			response.sendError(418, "Not implemented yet.");

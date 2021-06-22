@@ -13,4 +13,5 @@ public interface SPFormDAO extends GenericDAO<SPForm>{
 	public List<SPForm> getEditorForms(Integer id, String type);
 	public boolean hasAssistants(String genre);
 	public void submitDraft(Integer form_id, InputStream file);
+	public List<SPForm> getEditorDrafts(Integer id, String type);
 }

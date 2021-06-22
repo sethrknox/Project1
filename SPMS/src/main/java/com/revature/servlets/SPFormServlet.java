@@ -128,6 +128,20 @@ public class SPFormServlet extends HttpServlet{
 			response.getWriter().append(gson.toJson(forms));
 			break;
 		}
+		case "/SPMS/spform/editor/view/drafts": {
+			System.out.println("SPFORM /view/drafts");
+			Integer id = (Integer)session.getAttribute("id");
+			String type = (String)session.getAttribute("type");
+			System.out.println(id);
+			System.out.println(type);
+			List<SPForm> forms = ss.getEditorDrafts(id, type);
+			if (forms == null) {
+				
+			}
+			System.out.println(forms);
+			response.getWriter().append(gson.toJson(forms));
+			break;
+		}
 		case "/SPMS/spform/approve": {
 			System.out.println("SPForm /approve");
 			Integer editor_id = (Integer)session.getAttribute("id");
@@ -167,6 +181,19 @@ public class SPFormServlet extends HttpServlet{
 			String fileName = String.valueOf("fileName");
 			ss.submitDraft(draft_id, inputStream);
 			response.getWriter().append(gson.toJson("submitted"));
+			break;
+		}
+		case "/SPMS/spform/draft/approve": {
+			System.out.println("SPForm /draft/approve");
+			Integer editor_id = (Integer)session.getAttribute("id");
+			System.out.println("Editor id: "+editor_id);
+			Integer form_id = gson.fromJson(request.getReader(), Integer.class);
+			System.out.println("Form id: "+form_id);
+			String editor_type = (String)session.getAttribute("type");
+			System.out.println("Editor: "+editor_type);
+			
+			ss.approveDraft(form_id, editor_id, editor_type);
+			response.getWriter().append(gson.toJson("approved"));
 			break;
 		}
 		default: {

@@ -212,17 +212,31 @@ public class SPFormDAOImpl implements SPFormDAO {
 		List<SPForm> forms = new ArrayList<SPForm>();
 		switch(type) {
 		case "assistant": {
-			String sql = "select * from project1.spforms s left join project1.committees c on s.genre = c.genre where s.status = 'pending' and s.ae_approval = 'pending' and c.editor_id = ?";
+			String sql = "select * from project1.spforms s left join project1.committees c on s.genre = c.genre where s.status = 'pending' and s.ae_approval = 'pending' and s.priority = 'high' and c.editor_id = ?";
 			
 			try {
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ps.setInt(1, id);
 				ResultSet rs = ps.executeQuery();
 				
-				while (rs.next()) {
+				if (rs.next()) { // check for high priority forms first
 					SPForm spf = getById(rs.getInt("id"));
 					forms.add(spf);
+					while (rs.next()) {
+						SPForm sp = getById(rs.getInt("id"));
+						forms.add(sp);
+					}
+				} else { // get low priority forms
+					sql = "select * from project1.spforms s left join project1.committees c on s.genre = c.genre where s.status = 'pending' and s.ae_approval = 'pending' and c.editor_id = ?";
+					ps = conn.prepareStatement(sql);
+					ps.setInt(1, id);
+					rs = ps.executeQuery();
+					while (rs.next()) {
+						SPForm sp = getById(rs.getInt("id"));
+						forms.add(sp);
+					}
 				}
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -230,16 +244,29 @@ public class SPFormDAOImpl implements SPFormDAO {
 			break;
 		}
 		case "general": {
-			String sql = "select * from (select s.id from project1.spforms s left join project1.committees c on s.genre != c.genre where s.status = 'pending' and s.ae_approval = 'approved' and s.ge_approval = 'pending' and c.editor_id = ?) as foo group by foo.id";
+			String sql = "select * from (select s.id from project1.spforms s left join project1.committees c on s.genre != c.genre where s.status = 'pending' and s.ae_approval = 'approved' and s.ge_approval = 'pending' and s.priority = 'high' and c.editor_id = ?) as foo group by foo.id";
 			
 			try {
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ps.setInt(1, id);
 				ResultSet rs = ps.executeQuery();
 				
-				while (rs.next()) {
+				if (rs.next()) { // check for high priority forms first
 					SPForm spf = getById(rs.getInt("id"));
 					forms.add(spf);
+					while (rs.next()) {
+						SPForm sp = getById(rs.getInt("id"));
+						forms.add(sp);
+					}
+				} else { // get low priority forms
+					sql = "select * from (select s.id from project1.spforms s left join project1.committees c on s.genre != c.genre where s.status = 'pending' and s.ae_approval = 'approved' and s.ge_approval = 'pending' and c.editor_id = ?) as foo group by foo.id";
+					ps = conn.prepareStatement(sql);
+					ps.setInt(1, id);
+					rs = ps.executeQuery();
+					while (rs.next()) {
+						SPForm sp = getById(rs.getInt("id"));
+						forms.add(sp);
+					}
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -307,6 +334,74 @@ public class SPFormDAOImpl implements SPFormDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<SPForm> getEditorDrafts(Integer id, String type) {
+		// TODO Auto-generated method stub
+		List<SPForm> forms = new ArrayList<SPForm>();
+		switch(type) {
+		case "assistant": {
+			String sql = "select * from project1.spforms s left join project1.committees c on s.genre = c.genre where s.draft is not null and s.status = 'pending' and c.editor_id = ?";
+			
+			try {
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, id);
+				ResultSet rs = ps.executeQuery();
+				
+				while (rs.next()) {
+					SPForm spf = getById(rs.getInt("id"));
+					forms.add(spf);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		}
+		case "general": {
+			String sql = "select s.id from project1.spforms s left join project1.committees c on s.genre = c.genre where s.draft is not null and s.status = 'pending' and c.editor_id = ? union select s.id from project1.spforms s left join project1.committees c on s.genre != c.genre where s.draft is not null and s.status = 'pending' and c.editor_id = ?";
+			
+			try {
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, id);
+				ps.setInt(2, id);
+				ResultSet rs = ps.executeQuery();
+				
+				while (rs.next()) {
+					SPForm spf = getById(rs.getInt("id"));
+					forms.add(spf);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		}
+		case "senior": {
+			String sql = "select * from project1.spforms s left join project1.committees c on s.genre = c.genre where s.draft is not null and s.status = 'pending' and c.editor_id = ?";
+			
+			try {
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, id);
+				ResultSet rs = ps.executeQuery();
+				
+				while (rs.next()) {
+					SPForm spf = getById(rs.getInt("id"));
+					forms.add(spf);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		}
+		default: {
+			forms = null;
+			break;
+		}
+		}
+		return forms;
 	}
 
 }

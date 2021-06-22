@@ -33,7 +33,7 @@ public class SPForm {
 	private Genre genre;
 	private String tag_line;
 	private String description;
-	private String draft;
+	private Byte[] draft;
 	// user input above
 	private String status;
 	private Date submit_date;
@@ -61,7 +61,7 @@ public class SPForm {
 	
 	
 	public SPForm(Integer id, String author_first, String author_last, Author author_id, String title, Date end_date,
-			Story story_type, Genre genre, String tag_line, String description, String draft, String status,
+			Story story_type, Genre genre, String tag_line, String description, Byte[] draft, String status,
 			Date submit_date, String priority, Editor ae_id, String ae_approval, Editor ge_id, String ge_approval,
 			Editor se_id, String se_approval, String denial_reason, boolean se_edit, String ae_draft, String ge_draft,
 			String se_draft) {
@@ -107,7 +107,6 @@ public class SPForm {
 		this.genre = genre;
 		this.tag_line = tag_line;
 		this.description = description;
-		this.draft = "";
 		this.status = "on hold";
 		this.submit_date = new Date(System.currentTimeMillis());
 		this.priority = "low";
@@ -179,10 +178,10 @@ public class SPForm {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getDraft() {
+	public Byte[] getDraft() {
 		return draft;
 	}
-	public void setDraft(String draft) {
+	public void setDraft(Byte[] draft) {
 		this.draft = draft;
 	}
 	public String getStatus() {

@@ -1,5 +1,5 @@
 window.onload = populateGenres;
-//document.getElementById("form").addEventListener('submit', submitForm)
+//document.getElementById("form_submit").addEventListener('submit', submitForm(e))
 
 
 async function populateGenres() {
@@ -110,5 +110,7 @@ async function submitForm() {
     let result = await response.json();
     console.log(result)
     
-    getPoints();
+    //getPoints();
+    alert("Form has been submitted")
+    window.location.href = "http://localhost:8080/SPMS/author.html"
 }

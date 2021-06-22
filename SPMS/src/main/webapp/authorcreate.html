@@ -15,7 +15,7 @@
         <button type="button" class="btn" id="hbtn">Home
         <button type="button" class="btn" id="view_btn">View Forms</button>
         <button type="button" class="btn" id="create_btn">Create Form</button>
-        <button type="button" class="btn" id="logout_btn" style="">Logout</button>
+        <button type="button" class="btn" id="logout_btn">Logout</button>
     </div>
     <input type="hidden" id="username" style="display: none;"/>
     <input type="hidden" id="points" style="display: none;"/>
@@ -63,7 +63,7 @@
             <label for="description" class="form-label">Detailed Description</label>
             <input type="text" class="form-control" id="description" name="description">
           </div>
-          <button name="form_submit" id="form_submit" type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
+          <button name="form_submit" id="form_submit" type="submit" class="btn btn-primary" onclick="submitForm();return false">Submit</button>
           <span id="points_notice" style="display:none">Note: This form will be put on hold. You can resubmit once you have enough ponits.</span>
         </form>
     </div>

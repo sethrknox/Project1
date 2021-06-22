@@ -216,4 +216,52 @@ public class SPFormServiceImpl implements SPFormService {
 		// TODO Auto-generated method stub
 		sdao.submitDraft(draft_id, inputStream);
 	}
+
+	@Override
+	public List<SPForm> getEditorDrafts(Integer id, String type) {
+		// TODO Auto-generated method stub
+		List<SPForm> forms = sdao.getEditorDrafts(id, type);
+		return forms;
+	}
+
+	@Override
+	public void approveDraft(Integer form_id, Integer editor_id, String editor_type) {
+		// TODO Auto-generated method stub
+		SPForm spf = sdao.getById(form_id);
+		switch(editor_type) {
+		case "assistant": {
+			spf.setAe_draft("approved");
+			break;
+		}
+		case "general": {
+			spf.setGe_draft("approved");
+			break;
+		}
+		case "senior": {
+			spf.setSe_draft("approved");
+			break;
+		}
+		default: {
+			break;
+		}
+		}
+		String s = "approved";
+		if (s.equals(spf.getAe_draft()) && s.equals(spf.getGe_draft()) && s.equals(spf.getSe_draft())) {
+			spf.setStatus("approved");
+			Author a = spf.getAuthor_id();
+			String type = spf.getStory_type().getType();
+			int cost = 0;
+			if ("novel".equals(type)) {
+				cost = 50;
+			} else if ("novella".equals(type)) {
+				cost = 25;
+			} else if ("short story".equals(type)) {
+				cost = 20;
+			} else if ("article".equals(type)) {
+				cost = 10;
+			}
+			adao.updatePoints(a.getId(), -cost, a.getPoints());
+		}
+		sdao.update(spf);
+	}
 }

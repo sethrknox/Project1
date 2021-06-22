@@ -1,6 +1,14 @@
-
+document.getElementById("hbtn").onclick = home;
 document.getElementById("abtn").onclick = updateAuthorLogin;
 document.getElementById("ebtn").onclick = updateEditorLogin;
+
+function home() {
+    document.getElementById('un').style = "display:none"
+    document.getElementById('untb').style = "display:none"
+    document.getElementById('pw').style = "display:none"
+    document.getElementById('pwtb').style = "display:none"
+    document.getElementById('login_btn').style = "display:none"
+}
 
 function updateAuthorLogin () {
     login("author")

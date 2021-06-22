@@ -14,4 +14,6 @@ public interface SPFormService {
 	public void approve(Integer form_id, Integer editor_id, String type);
 	public void deny(Integer form_id, String reason, Integer editor_id, String type);
 	public void submitDraft(Integer draft_id, InputStream inputStream);
+	public List<SPForm> getEditorDrafts(Integer id, String type);
+	public void approveDraft(Integer form_id, Integer editor_id, String editor_type);
 }

@@ -89,7 +89,7 @@ async function getForms() {
         } else if (form.status == "denied") {
             var cell11 = row.insertCell(10);
             cell11.innerHTML = "Denial Reason: "+form.denial_reason;
-        } else if (form.ae_approval == "approved" && form.ae_approval == form.ge_approval && form.ae_approval == form.se_approval) {
+        } else if (form.status != "approved" && form.ae_approval == "approved" && form.ae_approval == form.ge_approval && form.ae_approval == form.se_approval) {
             console.log("TIME TO SUBMIT DRAFT");
             var cell11 = row.insertCell(10);
             createFileButton(cell11, form.id)
@@ -130,8 +130,10 @@ function createFileButton(context, form_id) {
         console.log("HERE I AM ");
         console.log("FILE LENGTH:" + file_btn.files.length);
         console.log("FILE: "+file_btn.files[0]);
+
         let fd = new FormData();
         fd.append("file", file_btn.files[0]);
+        console.log(fd);
         let url = "http://localhost:8080/SPMS/spform/draft/"+form_id
         let xhttp = new XMLHttpRequest();
         xhttp.open("POST", url);
