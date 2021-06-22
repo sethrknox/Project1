@@ -24,8 +24,8 @@ public class EditorServlet extends HttpServlet{
 		HttpSession session = request.getSession();
 		System.out.println("In editor servlet");
 		String uri = request.getRequestURI();
-		System.out.println(uri);
-
+		System.out.println("URI: "+uri);
+		System.out.println("Session id: " + session.getId());
 		String un = "";
 		String pw = "";
 		switch (uri) {

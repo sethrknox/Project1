@@ -22,15 +22,11 @@ public class AuthorServlet extends HttpServlet{
 	private AuthorDAOImpl adao = new AuthorDAOImpl();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//		PrintWriter pw = response.getWriter();
-//		pw.write("<h1>Hello from the AuthorServlet</h1>");
-//		response.getWriter().write("<h2>No PrintWriter Object required.</h2>");
 		HttpSession session = request.getSession();
 		System.out.println("In author servlet");
 		String uri = request.getRequestURI();
-		System.out.println(uri);
-//		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/hello.jsp");
-//		rd.forward(request,response);
+		System.out.println("URI: "+uri);
+		System.out.println("Session id: "+session.getId());
 		String un = "";
 		String pw = "";
 		//List<String> parameterNames = new ArrayList<String>(request.getParameterMap().keySet());
