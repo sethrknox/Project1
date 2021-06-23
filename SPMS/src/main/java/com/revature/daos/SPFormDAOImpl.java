@@ -19,6 +19,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.revature.beans.Author;
+import com.revature.beans.EditorRequest;
 import com.revature.beans.Genre;
 import com.revature.beans.SPForm;
 import com.revature.beans.Story;

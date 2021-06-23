@@ -71,25 +71,25 @@ async function getForms() {
             let id = form.id
             console.log("Form id: "+id);
             let info = prompt('Tell author what information you want:');
-            sendRequestInfo(id, info);
+            sendRequestInfo(id, info, 'author');
             
         })
         var cell18 = row.insertCell(17);
         createRequestButton(cell18, async function requestInfo() {
             console.log("REQUEST INFO FUNCTION");
-            let id = form.ae_id.id
+            let id = form.id
             console.log("Form id: "+id);
             let info = prompt('Tell assistant editor what information you want:');
-            sendRequestInfo(id, info);
+            sendRequestInfo(id, info, 'ae');
             
         })
         var cell19 = row.insertCell(18);
         createRequestButton(cell19, async function requestInfo() {
             console.log("REQUEST INFO FUNCTION");
-            let id = form.ge_id.id
+            let id = form.id
             console.log("Form id: "+id);
             let info = prompt('Tell general editor what information you want:');
-            sendRequestInfo(id, info);
+            sendRequestInfo(id, info, 'ge');
             
         })
     }
@@ -163,7 +163,21 @@ async function sendDenial(form_id, reason) {
 }
 async function sendRequestInfo(id, msg) {
     console.log("SEND REQUEST INFO");
-
+    var req = {
+        form_id: id,
+        receiver: target,
+        request: msg
+    }
+    let url = "http://localhost:8080/SPMS/spform/request";
+    let response = await fetch(url,{
+        method: 'POST',
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         },
+        body: JSON.stringify(req)});
+    let result = await response.json();
+    console.log(result);
     getForms();
 }
 

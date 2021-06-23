@@ -21,6 +21,7 @@
 		<mapping class="com.revature.beans.SPForm"></mapping>
 		<mapping class="com.revature.beans.Genre"></mapping>
 		<mapping class="com.revature.beans.Story"></mapping>
+		<mapping class="com.revature.beans.EditorRequest"></mapping>
 		
 	</session-factory>
 </hibernate-configuration>

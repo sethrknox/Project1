@@ -60,6 +60,13 @@ public class SPForm {
 	
 	
 	
+	public SPForm(Integer id) {
+		super();
+		this.id = id;
+	}
+
+
+
 	public SPForm(Integer id, String author_first, String author_last, Author author_id, String title, Date end_date,
 			Story story_type, Genre genre, String tag_line, String description, Byte[] draft, String status,
 			Date submit_date, String priority, Editor ae_id, String ae_approval, Editor ge_id, String ge_approval,

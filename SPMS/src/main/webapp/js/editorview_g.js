@@ -71,16 +71,16 @@ async function getForms() {
             let id = form.id
             console.log("Form id: "+id);
             let info = prompt('Tell author what information you want:');
-            sendRequestInfo(id, info);
+            sendRequestInfo(id, info, 'author');
             
         })
         var cell18 = row.insertCell(17);
         createRequestButton(cell18, async function requestInfo() {
             console.log("REQUEST INFO FUNCTION");
-            let id = form.ae_id.id
+            let id = form.id
             console.log("Form id: "+id);
             let info = prompt('Tell assistant editor what information you want:');
-            sendRequestInfo(id, info);
+            sendRequestInfo(id, info, 'ae');
             
         })
     }
@@ -109,6 +109,20 @@ function createDenyButton(context, func) {
     context.appendChild(deny_btn);
 }
 function createRequestButton(context, func) {
+    // var request_select = document.createElement("select");
+    // var opt1 = document.createElement("option");
+    // var opt2 = document.createElement("option");
+
+    // opt1.value = "author";
+    // opt1.text = "author";
+
+    // opt2.value = "ae";
+    // opt2.text = "assitant editor"
+
+    // request_select.add(opt1, null);
+    // request_select.add(opt2, null);
+    // context.appendChild(request_select);
+
     var request_btn = document.createElement("button");
             
     request_btn.id = "form_request";
@@ -151,8 +165,22 @@ async function sendDenial(form_id, reason) {
     console.log(result)
     getForms();
 }
-async function sendRequestInfo(id, msg) {
+async function sendRequestInfo(id, msg, target) {
     console.log("SEND REQUEST INFO");
-
+    var req = {
+        form_id: id,
+        receiver: target,
+        request: msg
+    }
+    let url = "http://localhost:8080/SPMS/spform/request";
+    let response = await fetch(url,{
+        method: 'POST',
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         },
+        body: JSON.stringify(req)});
+    let result = await response.json();
+    console.log(result);
     getForms();
 }

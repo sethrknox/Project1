@@ -2,6 +2,7 @@
 document.getElementById("hbtn").onclick = home;
 document.getElementById("view_btn").onclick = viewForms;
 document.getElementById("create_btn").onclick = createForm;
+document.getElementById("req_btn").onclick = viewRequests;
 document.getElementById("logout_btn").onclick = logout;
 
 
@@ -15,6 +16,10 @@ function viewForms() {
 function createForm() {
     //alert("OVER HERE")
     window.location.href = "http://localhost:8080/SPMS/authorcreate.html"
+}
+
+function viewRequests() {
+    window.location.href = "http://localhost:8080/SPMS/authorrequests.html"
 }
 
 async function logout() {

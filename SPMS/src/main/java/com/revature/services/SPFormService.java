@@ -3,6 +3,7 @@ package com.revature.services;
 import java.io.InputStream;
 import java.util.List;
 
+import com.revature.beans.EditorRequest;
 import com.revature.beans.SPForm;
 
 public interface SPFormService {
@@ -16,4 +17,5 @@ public interface SPFormService {
 	public void submitDraft(Integer draft_id, InputStream inputStream);
 	public List<SPForm> getEditorDrafts(Integer id, String type);
 	public void approveDraft(Integer form_id, Integer editor_id, String editor_type);
+	
 }

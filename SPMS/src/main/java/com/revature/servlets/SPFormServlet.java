@@ -1,6 +1,5 @@
 package com.revature.servlets;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -15,12 +14,15 @@ import javax.servlet.http.Part;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.revature.beans.EditorRequest;
 import com.revature.beans.Genre;
 import com.revature.beans.SPForm;
 import com.revature.daos.GenreDAO;
 import com.revature.daos.GenreDAOImpl;
 import com.revature.daos.SPFormDAO;
 import com.revature.daos.SPFormDAOImpl;
+import com.revature.services.EditorRequestService;
+import com.revature.services.EditorRequestServiceImpl;
 import com.revature.services.SPFormService;
 import com.revature.services.SPFormServiceImpl;
 
@@ -29,6 +31,7 @@ public class SPFormServlet extends HttpServlet{
 
 	private Gson gson = new Gson();
 	private SPFormService ss = new SPFormServiceImpl();
+	private EditorRequestService ers = new EditorRequestServiceImpl();
 	private SPFormDAO sdao = new SPFormDAOImpl();
 	private GenreDAO gdao = new GenreDAOImpl();
 	
@@ -92,6 +95,7 @@ public class SPFormServlet extends HttpServlet{
 //			System.out.println(request.getQueryString());
 			ObjectMapper om = new ObjectMapper();
 			SPForm spf = om.readValue(request.getReader(), SPForm.class);
+			System.out.println(spf);
 			ss.createForm(spf, (Integer)session.getAttribute("id"));
 			//spf.setAuthor_id(session.getAttribute("id"));
 			System.out.println(spf);
@@ -192,6 +196,53 @@ public class SPFormServlet extends HttpServlet{
 			
 			ss.approveDraft(form_id, editor_id, editor_type);
 			response.getWriter().append(gson.toJson("approved"));
+			break;
+		}
+		case "/SPMS/spform/request": {
+			System.out.println("SPForm /request");
+			ObjectMapper om = new ObjectMapper();
+			EditorRequest er = om.readValue(request.getReader(), EditorRequest.class);
+			//EditorRequest er = gson.fromJson(request.getReader(), EditorRequest.class);
+			//er.setReq_id((Integer)session.getAttribute("id"));
+			System.out.println(er);
+			ers.sendRequest(er, (Integer)session.getAttribute("id"));
+			response.getWriter().append(gson.toJson("submitted"));
+			break;
+		}
+		case "/SPMS/spform/author/view/requests": {
+			System.out.println("SPForm /author/view/requests");
+			List<EditorRequest> reqs = ers.getRequests((Integer)session.getAttribute("id"));
+			response.getWriter().append(gson.toJson(reqs));
+			break;
+		}
+		case "/SPMS/spform/reply": {
+			System.out.println("SPForm /reply");
+			EditorRequest er = gson.fromJson(request.getReader(), EditorRequest.class);
+			System.out.println(er);
+			ers.sendReply(er);
+			response.getWriter().append(gson.toJson("reply sent"));
+			break;
+		}
+		case "/SPMS/spform/editor/view/incoming": {
+			System.out.println("SPForm /editor/view/incoming");
+			Integer editor_id = (Integer)session.getAttribute("id");
+			System.out.println("Editor id: "+editor_id);
+			String editor_type = (String)session.getAttribute("type");
+			System.out.println("Editor: "+editor_type);
+			
+			List<EditorRequest> reqs = ers.getEditorIncomingRequests(editor_id, editor_type);
+			response.getWriter().append(gson.toJson(reqs));
+			break;
+		}
+		case "/SPMS/spform/editor/view/outgoing": {
+			System.out.println("SPForm /editor/view/outgoing");
+			Integer editor_id = (Integer)session.getAttribute("id");
+			System.out.println("Editor id: "+editor_id);
+			String editor_type = (String)session.getAttribute("type");
+			System.out.println("Editor: "+editor_type);
+			
+			List<EditorRequest> reqs = ers.getEditorOutgoingRequests(editor_id, editor_type);
+			response.getWriter().append(gson.toJson(reqs));
 			break;
 		}
 		default: {

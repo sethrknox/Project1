@@ -3,6 +3,7 @@ package com.revature.daos;
 import java.io.InputStream;
 import java.util.List;
 
+import com.revature.beans.EditorRequest;
 import com.revature.beans.SPForm;
 
 public interface SPFormDAO extends GenericDAO<SPForm>{
