@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
@@ -18,18 +17,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.revature.beans.Author;
-import com.revature.beans.EditorRequest;
-import com.revature.beans.Genre;
 import com.revature.beans.SPForm;
-import com.revature.beans.Story;
 import com.revature.utils.HibernateUtil;
 import com.revature.utils.JDBCConnection;
 
 public class SPFormDAOImpl implements SPFormDAO {
-	private EntityManager em;
+	//private EntityManager em;
 	private Connection conn = JDBCConnection.getConnection();
-	private AuthorDAO adao = new AuthorDAOImpl();
+	//private AuthorDAO adao = new AuthorDAOImpl();
 	
 	@Override
 	public void add(SPForm spf) {

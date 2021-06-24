@@ -1,5 +1,7 @@
 package com.revature.services;
 
-public interface EditorService {
+import com.revature.beans.Editor;
 
+public interface EditorService {
+	public Editor getEditor(String username, String password);
 }

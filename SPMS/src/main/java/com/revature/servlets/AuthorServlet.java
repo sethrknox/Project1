@@ -1,11 +1,7 @@
 package com.revature.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,13 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
-import com.revature.daos.AuthorDAOImpl;
 import com.revature.beans.Author;
+import com.revature.services.AuthorService;
+import com.revature.services.AuthorServiceImpl;
 
 public class AuthorServlet extends HttpServlet{
 
 	private Gson gson = new Gson();
-	private AuthorDAOImpl adao = new AuthorDAOImpl();
+	private AuthorService as = new AuthorServiceImpl();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession();
@@ -27,21 +24,15 @@ public class AuthorServlet extends HttpServlet{
 		String uri = request.getRequestURI();
 		System.out.println("URI: "+uri);
 		System.out.println("Session id: "+session.getId());
-		String un = "";
-		String pw = "";
 		//List<String> parameterNames = new ArrayList<String>(request.getParameterMap().keySet());
 		switch (uri) {
 		case "/SPMS/author/login": {
 			session.setMaxInactiveInterval(0);
-//			un = request.getParameter("username");
-//			pw = request.getParameter("password");
-//			System.out.println(un +" "+ pw);
-//			System.out.println(session.getAttribute("username"));
 			Author au = gson.fromJson(request.getReader(), Author.class);
-			Author a = adao.getAuthor(au.getUsername(), au.getPassword());
+			Author a = as.getAuthor(au.getUsername(), au.getPassword());
 			if (a != null) { // logged in
-				session.setAttribute("username", un);
-				session.setAttribute("password", pw);
+				session.setAttribute("username", a.getUsername());
+				session.setAttribute("password", a.getPassword());
 				session.setAttribute("first", a.getFirst());
 				session.setAttribute("last", a.getLast());
 				session.setAttribute("id", a.getId());
@@ -61,7 +52,7 @@ public class AuthorServlet extends HttpServlet{
 		}
 		case "/SPMS/author/points": {
 			//Integer points = (Integer)session.getAttribute("points");
-			Integer points = adao.getPoints((Integer)session.getAttribute("id"));
+			Integer points = as.getPoints((Integer)session.getAttribute("id"));
 			response.getWriter().append(gson.toJson(points));
 			System.out.println("Sent points to javascript: " + points);
 			break;

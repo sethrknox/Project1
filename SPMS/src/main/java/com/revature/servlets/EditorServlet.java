@@ -1,8 +1,6 @@
 package com.revature.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,13 +10,13 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.revature.beans.Editor;
-import com.revature.daos.EditorDAO;
-import com.revature.daos.EditorDAOImpl;
+import com.revature.services.EditorService;
+import com.revature.services.EditorServiceImpl;
 
 public class EditorServlet extends HttpServlet{
 
 	private Gson gson = new Gson();
-	private EditorDAO edao = new EditorDAOImpl();
+	private EditorService es = new EditorServiceImpl();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession();
@@ -26,17 +24,15 @@ public class EditorServlet extends HttpServlet{
 		String uri = request.getRequestURI();
 		System.out.println("URI: "+uri);
 		System.out.println("Session id: " + session.getId());
-		String un = "";
-		String pw = "";
 		switch (uri) {
 		case "/SPMS/editor/login": {
 			session.setMaxInactiveInterval(0);
 			Editor ed = gson.fromJson(request.getReader(), Editor.class);
 			System.out.println(ed);
-			Editor e = edao.getEditor(ed.getUsername(), ed.getPassword());
+			Editor e = es.getEditor(ed.getUsername(), ed.getPassword());
 			if (e != null) { // logged in
-				session.setAttribute("username", un);
-				session.setAttribute("password", pw);
+				session.setAttribute("username", e.getUsername());
+				session.setAttribute("password", e.getPassword());
 				session.setAttribute("first", e.getFirst());
 				session.setAttribute("last", e.getLast());
 				session.setAttribute("id", e.getId());

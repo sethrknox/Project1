@@ -17,12 +17,10 @@ import com.google.gson.Gson;
 import com.revature.beans.EditorRequest;
 import com.revature.beans.Genre;
 import com.revature.beans.SPForm;
-import com.revature.daos.GenreDAO;
-import com.revature.daos.GenreDAOImpl;
-import com.revature.daos.SPFormDAO;
-import com.revature.daos.SPFormDAOImpl;
 import com.revature.services.EditorRequestService;
 import com.revature.services.EditorRequestServiceImpl;
+import com.revature.services.GenreService;
+import com.revature.services.GenreServiceImpl;
 import com.revature.services.SPFormService;
 import com.revature.services.SPFormServiceImpl;
 
@@ -32,8 +30,7 @@ public class SPFormServlet extends HttpServlet{
 	private Gson gson = new Gson();
 	private SPFormService ss = new SPFormServiceImpl();
 	private EditorRequestService ers = new EditorRequestServiceImpl();
-	private SPFormDAO sdao = new SPFormDAOImpl();
-	private GenreDAO gdao = new GenreDAOImpl();
+	private GenreService gs = new GenreServiceImpl();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession();
@@ -41,8 +38,6 @@ public class SPFormServlet extends HttpServlet{
 		String uri = request.getRequestURI();
 		System.out.println("URI: "+uri);
 		System.out.println("Session id: " + session.getId());
-		String un = "";
-		String pw = "";
 		//List<String> parameterNames = new ArrayList<String>(request.getParameterMap().keySet());
 		Integer draft_id = 0;
 		if (uri.matches("/SPMS/spform/draft/([0-9]*)")) {
@@ -55,10 +50,6 @@ public class SPFormServlet extends HttpServlet{
 		switch (uri) {
 		case "/SPMS/spform/view": {
 			System.out.println("SPForm /view");
-			//System.out.println(parameterNames);
-//			un = (String) session.getAttribute("username");
-//			pw = (String) session.getAttribute("password");
-//			System.out.println(un +" "+ pw);
 			List<SPForm> forms = null;
 			int id = (Integer)session.getAttribute("id");
 			System.out.println(id);
@@ -73,13 +64,8 @@ public class SPFormServlet extends HttpServlet{
 		}
 		case "/SPMS/spform/genres": {
 			System.out.println("SPForm /genres");
-			//System.out.println(parameterNames);
-//			un = (String) session.getAttribute("username");
-//			pw = (String) session.getAttribute("password");
-//			System.out.println(un +" "+ pw);
-//			System.out.println(session.getAttribute("username"));
 			List<Genre> genres = null;
-			genres = gdao.getGenres();
+			genres = gs.getGenres();
 			
 			System.out.println(genres);
 			response.getWriter().append(gson.toJson(genres));
@@ -87,12 +73,6 @@ public class SPFormServlet extends HttpServlet{
 		}
 		case "/SPMS/spform/submit": {
 			System.out.println("SPForm /submit");
-//			System.out.println(request);
-//			System.out.println(request.getParameterMap());
-//			System.out.println(request.getParameterNames());
-//			System.out.println(request.getParameter("0"));
-//			System.out.println(request.getParameter("firstName"));
-//			System.out.println(request.getQueryString());
 			ObjectMapper om = new ObjectMapper();
 			SPForm spf = om.readValue(request.getReader(), SPForm.class);
 			System.out.println(spf);
@@ -100,11 +80,6 @@ public class SPFormServlet extends HttpServlet{
 			//spf.setAuthor_id(session.getAttribute("id"));
 			System.out.println(spf);
 			//SPForm test = gson.fromJson(request.getReader(), SPForm.class);
-			//Type collectionType = new TypeToken<Collection<SPForm>>(){}.getType();
-			//String enums = gson.fromJson(request.getReader(), collectionType);
-			//System.out.println(test);
-			//System.out.println(enums);
-			//System.out.println(request.getReader());
 			response.getWriter().append(gson.toJson("Submitted form."));
 			break;
 		}

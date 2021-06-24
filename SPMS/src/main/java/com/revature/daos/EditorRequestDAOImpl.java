@@ -18,7 +18,7 @@ import com.revature.utils.JDBCConnection;
 public class EditorRequestDAOImpl implements EditorRequestDAO {
 
 	private Connection conn = JDBCConnection.getConnection();
-	private SPFormDAO sdao = new SPFormDAOImpl();
+	//private SPFormDAO sdao = new SPFormDAOImpl();
 	@Override
 	public void add(EditorRequest t) {
 		// TODO Auto-generated method stub

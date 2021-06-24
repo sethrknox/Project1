@@ -7,13 +7,10 @@ import java.util.List;
 
 import com.revature.beans.Author;
 import com.revature.beans.Editor;
-import com.revature.beans.EditorRequest;
 import com.revature.beans.SPForm;
 import com.revature.daos.AuthorDAOImpl;
 import com.revature.daos.EditorDAO;
 import com.revature.daos.EditorDAOImpl;
-import com.revature.daos.EditorRequestDAO;
-import com.revature.daos.EditorRequestDAOImpl;
 import com.revature.daos.SPFormDAO;
 import com.revature.daos.SPFormDAOImpl;
 

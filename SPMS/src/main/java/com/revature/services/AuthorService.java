@@ -1,5 +1,8 @@
 package com.revature.services;
 
-public interface AuthorService {
+import com.revature.beans.Author;
 
+public interface AuthorService {
+	public Author getAuthor(String username, String password);
+	public Integer getPoints(Integer id);
 }

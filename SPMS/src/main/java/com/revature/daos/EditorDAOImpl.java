@@ -13,7 +13,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.revature.beans.Author;
 import com.revature.beans.Editor;
 import com.revature.utils.HibernateUtil;
 import com.revature.utils.JDBCConnection;
