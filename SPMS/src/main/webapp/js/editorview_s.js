@@ -161,7 +161,7 @@ async function sendDenial(form_id, reason) {
     console.log(result)
     getForms();
 }
-async function sendRequestInfo(id, msg) {
+async function sendRequestInfo(id, msg, target) {
     console.log("SEND REQUEST INFO");
     var req = {
         form_id: id,

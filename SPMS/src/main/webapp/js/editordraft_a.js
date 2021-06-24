@@ -104,7 +104,7 @@ async function getForms() {
             let id = form.id
             console.log("Form id: "+id);
             let info = prompt('Tell author what changes you want:');
-            sendRequestInfo(id, info);
+            sendRequestInfo(id, info, 'author');
             
         })
         }
@@ -177,8 +177,22 @@ async function sendDenial(form_id, reason) {
     console.log(result)
     getForms();
 }
-async function sendRequestInfo(id, msg) {
+async function sendRequestInfo(id, msg, target) {
     console.log("SEND REQUEST INFO");
-
+    let req = {
+        form_id: id,
+        receiver: target,
+        request: msg
+    }
+    let url = "http://localhost:8080/SPMS/spform/request";
+    let response = await fetch(url,{
+        method: 'POST',
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         },
+        body: JSON.stringify(req)});
+    let result = await response.json();
+    console.log(result);
     getForms();
 }

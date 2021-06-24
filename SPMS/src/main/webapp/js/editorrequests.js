@@ -3,7 +3,7 @@ window.onload = getInRequests;
 async function getInRequests() {
     console.log("Getting requests");
     table = document.getElementById("in_req");
-    table.innerHTML = "<tr><th>First</th><th>Last</th><th>Title</th><th>Expected Completion</th><th>Type</th><th>Genre</th><th>Tag</th><th>Description</th><th>Status</th><th>Submission Date</th><th>Information Request</th><th>Request Target</th><th>Reply</th></tr>";
+    table.innerHTML = "<tr><th>First</th><th>Last</th><th>Title</th><th>Expected Completion</th><th>Type</th><th>Genre</th><th>Tag</th><th>Description</th><th>Status</th><th>Submission Date</th><th>Information Request</th><th>Reply</th></tr>";
     let url = "http://localhost:8080/SPMS/spform/editor/view/incoming";
     let response = await fetch(url,{
         headers : { 
@@ -63,7 +63,7 @@ async function getInRequests() {
 async function getOutRequests() {
     console.log("Getting requests");
     table = document.getElementById("out_req");
-    table.innerHTML = "<tr><th>First</th><th>Last</th><th>Title</th><th>Expected Completion</th><th>Type</th><th>Genre</th><th>Tag</th><th>Description</th><th>Status</th><th>Submission Date</th><th>Information Request</th><th>Reply</th></tr>";
+    table.innerHTML = "<tr><th>First</th><th>Last</th><th>Title</th><th>Expected Completion</th><th>Type</th><th>Genre</th><th>Tag</th><th>Description</th><th>Status</th><th>Submission Date</th><th>Information Request</th><th>Request Target</th><th>Reply</th></tr>";
     let url = "http://localhost:8080/SPMS/spform/editor/view/outgoing";
     let response = await fetch(url,{
         headers : { 
@@ -103,9 +103,20 @@ async function getOutRequests() {
         var cell11 = row.insertCell(10);
         cell11.innerHTML = form.request;
         var cell12 = row.insertCell(11);
-        cell12.innerHTML = form.receiver;
+        var req_target = form.receiver;
+        if (req_target == 'ae') {
+            req_target = 'assistant editor';
+        } else if (req_target == 'ge') {
+            req_target = 'general editor'
+        } else if (req_target == 'se') {
+            req_target = 'senior editor'
+        }
+        cell12.innerHTML = req_target;
         var cell13 = row.insertCell(12);
-        cell13.innerHTML = form.response;
+        if (form.response != undefined) {
+            cell13.innerHTML = form.response;
+        }
+        
             
         //id_count++;
 

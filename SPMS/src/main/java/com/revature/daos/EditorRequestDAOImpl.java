@@ -118,7 +118,7 @@ public class EditorRequestDAOImpl implements EditorRequestDAO {
 	public List<EditorRequest> getRequests(Integer id) {
 		// TODO Auto-generated method stub
 		List<EditorRequest> reqs = new ArrayList<EditorRequest>();
-		String sql = "select r.id from project1.requests r left join project1.spforms s on r.form_id = s.id where s.author_id = ? and r.response is null";
+		String sql = "select r.id from project1.requests r left join project1.spforms s on r.form_id = s.id where r.receiver = 'author' and s.author_id = ? and r.response is null";
 		
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
