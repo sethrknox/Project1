@@ -25,7 +25,7 @@
     <h2 id="h2">CREATE FORM PAGE</h2>
     <h3 id="author_points" style="display:none"></h3>
     <div id="form_div">
-        <form id="form" name="form_name">
+        <form id="form" name="form_name" onsubmit="submitForm();return false">
           <div class="mb-3">
             <label for="author_first" class="form-label">First Name</label>
             <input type="text" class="form-control" id="author_first" name="author_first" required>
@@ -64,7 +64,7 @@
             <label for="description" class="form-label">Detailed Description</label>
             <input type="text" class="form-control" id="description" name="description">
           </div>
-          <button name="form_submit" id="form_submit" type="submit" class="btn btn-primary" onclick="submitForm();return false">Submit</button>
+          <button name="form_submit" id="form_submit" type="submit" class="btn btn-primary" >Submit</button>
           <span id="points_notice" style="display:none">Note: This form will be put on hold. You can resubmit once you have enough ponits.</span>
         </form>
     </div>

@@ -215,6 +215,13 @@ public class SPFormServiceImpl implements SPFormService {
 	@Override
 	public void submitDraft(Integer draft_id, InputStream inputStream) {
 		// TODO Auto-generated method stub
+		SPForm spf = sdao.getById(draft_id);
+		String genre = spf.getGenre().getName();
+		boolean hasAssistants = sdao.hasAssistants(genre);
+		if (!hasAssistants) {
+			spf.setAe_draft("approved");
+			sdao.update(spf);
+		}
 		sdao.submitDraft(draft_id, inputStream);
 	}
 
