@@ -1,6 +1,7 @@
 package com.revature.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.revature.beans.Editor;
+import com.revature.beans.Genre;
 import com.revature.services.EditorService;
 import com.revature.services.EditorServiceImpl;
 
@@ -59,6 +61,12 @@ public class EditorServlet extends HttpServlet{
 		case "/SPMS/editor/id": {
 			Integer id = (Integer)session.getAttribute("id");
 			response.getWriter().append(gson.toJson(id));
+			break;
+		}
+		case "/SPMS/editor/committees": {
+			Integer id = (Integer)session.getAttribute("id");
+			List<Genre> committees = es.getCommittees(id);
+			response.getWriter().append(gson.toJson(committees));
 			break;
 		}
 		default: {

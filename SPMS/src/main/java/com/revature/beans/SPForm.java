@@ -1,6 +1,7 @@
 package com.revature.beans;
 
 import java.sql.Date;
+import java.util.Arrays;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -54,6 +55,9 @@ public class SPForm {
 	private String ae_draft;
 	private String ge_draft;
 	private String se_draft;
+	private String se_title;
+	private String se_tag_line;
+	private Date se_end_date;
 	
 	public SPForm() {}
 	
@@ -64,13 +68,13 @@ public class SPForm {
 		this.id = id;
 	}
 
-
+	
 
 	public SPForm(Integer id, String author_first, String author_last, Author author_id, String title, Date end_date,
 			Story story_type, Genre genre, String tag_line, String description, Byte[] draft, String status,
 			Date submit_date, String priority, Editor ae_id, String ae_approval, Editor ge_id, String ge_approval,
 			Editor se_id, String se_approval, String denial_reason, boolean se_edit, String ae_draft, String ge_draft,
-			String se_draft) {
+			String se_draft, String se_title, String se_tag_line, Date se_end_date) {
 		super();
 		this.id = id;
 		this.author_first = author_first;
@@ -97,6 +101,9 @@ public class SPForm {
 		this.ae_draft = ae_draft;
 		this.ge_draft = ge_draft;
 		this.se_draft = se_draft;
+		this.se_title = se_title;
+		this.se_tag_line = se_tag_line;
+		this.se_end_date = se_end_date;
 	}
 
 
@@ -274,6 +281,24 @@ public class SPForm {
 	public void setSe_draft(String se_draft) {
 		this.se_draft = se_draft;
 	}
+	public String getSe_title() {
+		return se_title;
+	}
+	public void setSe_title(String se_title) {
+		this.se_title = se_title;
+	}
+	public String getSe_tag_line() {
+		return se_tag_line;
+	}
+	public void setSe_tag_line(String se_tag_line) {
+		this.se_tag_line = se_tag_line;
+	}
+	public Date getSe_end_date() {
+		return se_end_date;
+	}
+	public void setSe_end_date(Date se_end_date) {
+		this.se_end_date = se_end_date;
+	}
 
 
 
@@ -289,7 +314,7 @@ public class SPForm {
 		result = prime * result + ((author_last == null) ? 0 : author_last.hashCode());
 		result = prime * result + ((denial_reason == null) ? 0 : denial_reason.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((draft == null) ? 0 : draft.hashCode());
+		result = prime * result + Arrays.hashCode(draft);
 		result = prime * result + ((end_date == null) ? 0 : end_date.hashCode());
 		result = prime * result + ((ge_approval == null) ? 0 : ge_approval.hashCode());
 		result = prime * result + ((ge_draft == null) ? 0 : ge_draft.hashCode());
@@ -300,7 +325,10 @@ public class SPForm {
 		result = prime * result + ((se_approval == null) ? 0 : se_approval.hashCode());
 		result = prime * result + ((se_draft == null) ? 0 : se_draft.hashCode());
 		result = prime * result + (se_edit ? 1231 : 1237);
+		result = prime * result + ((se_end_date == null) ? 0 : se_end_date.hashCode());
 		result = prime * result + ((se_id == null) ? 0 : se_id.hashCode());
+		result = prime * result + ((se_tag_line == null) ? 0 : se_tag_line.hashCode());
+		result = prime * result + ((se_title == null) ? 0 : se_title.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((story_type == null) ? 0 : story_type.hashCode());
 		result = prime * result + ((submit_date == null) ? 0 : submit_date.hashCode());
@@ -360,10 +388,7 @@ public class SPForm {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (draft == null) {
-			if (other.draft != null)
-				return false;
-		} else if (!draft.equals(other.draft))
+		if (!Arrays.equals(draft, other.draft))
 			return false;
 		if (end_date == null) {
 			if (other.end_date != null)
@@ -412,10 +437,25 @@ public class SPForm {
 			return false;
 		if (se_edit != other.se_edit)
 			return false;
+		if (se_end_date == null) {
+			if (other.se_end_date != null)
+				return false;
+		} else if (!se_end_date.equals(other.se_end_date))
+			return false;
 		if (se_id == null) {
 			if (other.se_id != null)
 				return false;
 		} else if (!se_id.equals(other.se_id))
+			return false;
+		if (se_tag_line == null) {
+			if (other.se_tag_line != null)
+				return false;
+		} else if (!se_tag_line.equals(other.se_tag_line))
+			return false;
+		if (se_title == null) {
+			if (other.se_title != null)
+				return false;
+		} else if (!se_title.equals(other.se_title))
 			return false;
 		if (status == null) {
 			if (other.status != null)
@@ -451,11 +491,12 @@ public class SPForm {
 	public String toString() {
 		return "SPForm [id=" + id + ", author_first=" + author_first + ", author_last=" + author_last + ", author_id="
 				+ author_id + ", title=" + title + ", end_date=" + end_date + ", story_type=" + story_type + ", genre="
-				+ genre + ", tag_line=" + tag_line + ", description=" + description + ", draft=" + draft + ", status="
-				+ status + ", submit_date=" + submit_date + ", priority=" + priority + ", ae_id=" + ae_id
-				+ ", ae_approval=" + ae_approval + ", ge_id=" + ge_id + ", ge_approval=" + ge_approval + ", se_id="
-				+ se_id + ", se_approval=" + se_approval + ", denial_reason=" + denial_reason + ", se_edit=" + se_edit
-				+ ", ae_draft=" + ae_draft + ", ge_draft=" + ge_draft + ", se_draft=" + se_draft + "]";
+				+ genre + ", tag_line=" + tag_line + ", description=" + description + ", draft="
+				+ Arrays.toString(draft) + ", status=" + status + ", submit_date=" + submit_date + ", priority="
+				+ priority + ", ae_id=" + ae_id + ", ae_approval=" + ae_approval + ", ge_id=" + ge_id + ", ge_approval="
+				+ ge_approval + ", se_id=" + se_id + ", se_approval=" + se_approval + ", denial_reason=" + denial_reason
+				+ ", se_edit=" + se_edit + ", ae_draft=" + ae_draft + ", ge_draft=" + ge_draft + ", se_draft="
+				+ se_draft + ", se_title=" + se_title + ", se_tag_line=" + se_tag_line + ", se_end_date=" + se_end_date + "]";
 	}
 
 	

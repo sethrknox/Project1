@@ -142,7 +142,7 @@ public class EditorRequestDAOImpl implements EditorRequestDAO {
 		List<EditorRequest> reqs = new ArrayList<EditorRequest>();
 		switch(type) {
 		case "assistant": {
-			String sql = "select r.id from project1.requests r left join project1.spforms s on r.form_id = s.id where r.receiver = 'ae' and s.ae_id = ?";
+			String sql = "select r.id from project1.requests r left join project1.spforms s on r.form_id = s.id where r.receiver = 'ae' and r.response is null and s.ae_id = ?";
 			
 			try {
 				PreparedStatement ps = conn.prepareStatement(sql);
@@ -160,7 +160,7 @@ public class EditorRequestDAOImpl implements EditorRequestDAO {
 			break;
 		}
 		case "general": {
-			String sql = "select r.id from project1.requests r left join project1.spforms s on r.form_id = s.id where r.receiver = 'ge' and s.ge_id = ?";
+			String sql = "select r.id from project1.requests r left join project1.spforms s on r.form_id = s.id where r.receiver = 'ge' and r.response is null and s.ge_id = ?";
 			
 			try {
 				PreparedStatement ps = conn.prepareStatement(sql);

@@ -18,4 +18,16 @@ public class AuthorServiceImpl implements AuthorService {
 		return adao.getPoints(id);
 	}
 
+	@Override
+	public boolean registerAuthor(Author au) {
+		// TODO Auto-generated method stub
+		// check is false when username doesn't exists -> can register this account
+		boolean check = adao.usernameExists(au.getUsername());
+		if (!check) {
+			au.setPoints(100);
+			adao.add(au);
+		}
+		return !check;
+	}
+
 }

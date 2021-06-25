@@ -1,6 +1,7 @@
 document.getElementById("hbtn").onclick = home;
 document.getElementById("abtn").onclick = updateAuthorLogin;
 document.getElementById("ebtn").onclick = updateEditorLogin;
+document.getElementById("rbtn").onclick = showForm;
 
 function home() {
     document.getElementById('un').style = "display:none"
@@ -17,6 +18,8 @@ function updateEditorLogin () {
     login("editor")
 }
 function login (user_type) {
+    var f = document.getElementById("registration")
+    f.style = "display:none"
 
     let un = document.getElementById('un');
     let un_tb = document.getElementById('untb');
@@ -171,4 +174,51 @@ async function authorFetchLogin() {
         alert("Invalid username and password")
         //console.error(error)
     }
+}
+
+function showForm() {
+    let un = document.getElementById('un');
+    let un_tb = document.getElementById('untb');
+    let pw = document.getElementById('pw');
+    let pw_tb = document.getElementById('pwtb');
+    let login_btn = document.getElementById('login_btn')
+    
+
+    un.style = "display: none"
+    pw.style = "display: none"
+    un_tb.style = "display: none"
+    pw_tb.style = "display: none"
+    login_btn.style = "display: none"
+
+    var f = document.getElementById("registration")
+    f.style = "display:inline"
+}
+
+async function submitRegistration() {
+    console.log("registering new author");
+    var f = document.getElementById("registration");
+    let formData = new FormData(f);
+    let author = {}
+    for (var [key, value] of formData.entries()) {
+        author[key] = value;
+    }
+    let url = "http://localhost:8080/SPMS/author/register"
+    let response = await fetch(url,{
+        method: 'POST',
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         },
+        body: JSON.stringify(author)})
+        try {
+            let result = await response.json();
+            console.log(result)
+            alert("Account successfully registered.");
+            window.location.href = "http://localhost:8080/SPMS/index.html"
+        } catch (error) {
+            alert("Username already exists.")
+            //console.error(error)
+        }
+    
+    
 }

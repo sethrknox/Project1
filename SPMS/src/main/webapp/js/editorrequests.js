@@ -151,5 +151,5 @@ async function sendReply(req_id, reply) {
         body: JSON.stringify(msg)})
     let result = await response.json();
     console.log(result);
-    getRequests();
+    getInRequests();
 }

@@ -75,14 +75,19 @@ async function getForms() {
             
         })
         var cell18 = row.insertCell(17);
-        createRequestButton(cell18, async function requestInfo() {
-            console.log("REQUEST INFO FUNCTION");
-            let id = form.id
-            console.log("Form id: "+id);
-            let info = prompt('Tell assistant editor what information you want:');
-            sendRequestInfo(id, info, 'ae');
-            
-        })
+        if (form.ae_id != null) {
+            createRequestButton(cell18, async function requestInfo() {
+                console.log("REQUEST INFO FUNCTION");
+                let id = form.id
+                console.log("Form id: "+id);
+                let info = prompt('Tell assistant editor what information you want:');
+                sendRequestInfo(id, info, 'ae');
+                
+            })
+        } else {
+            cell18.innerHTML = "No assistant editor for this form."
+        }
+        
     }
 }
 

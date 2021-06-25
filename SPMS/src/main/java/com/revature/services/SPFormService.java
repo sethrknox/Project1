@@ -16,5 +16,7 @@ public interface SPFormService {
 	public void submitDraft(Integer draft_id, InputStream inputStream);
 	public List<SPForm> getEditorDrafts(Integer id, String type);
 	public void approveDraft(Integer form_id, Integer editor_id, String editor_type);
+	public void requestEdit(SPForm spf);
+	public void updateEdits(Integer form_id, String string);
 	
 }

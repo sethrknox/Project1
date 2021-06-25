@@ -88,3 +88,20 @@ async function logout() {
     console.log(result);
     window.location.href = "http://localhost:8080/SPMS/"
 }
+
+async function getCommittees() {
+    let url = "http://localhost:8080/SPMS/editor/committees";
+    let response = await fetch(url,{
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }})
+    let result = await response.json();
+    console.log(result);
+    let genres = document.getElementById("genres");
+    for (let genre of result) {
+        let item = document.createElement("li");
+        item.innerHTML = genre.name;
+        genres.appendChild(item);
+    }
+}

@@ -3,7 +3,7 @@ window.onload = getForms;
 async function getForms() {
     console.log("Getting AE forms");
     table = document.getElementById("form_table");
-    table.innerHTML = "<tr><th>First</th><th>Last</th><th>Title</th><th>Expected Completion</th><th>Type</th><th>Genre</th><th>Tag</th><th>Description</th><th>Status</th><th>Submission Date</th><th>Priority</th><th>Assistant Editor Approval</th><th>General Editor Approval</th><th>Senior Editor Approval</th><th>Approve</th><th>Deny</th><th>Request more information (Author)</th><th>Request more information (Assistant Editor)</th><th>Request more information (General Editor)</th></tr>";
+    table.innerHTML = "<tr><th>Edit</th><th>First</th><th>Last</th><th>Title</th><th>Expected Completion</th><th>Type</th><th>Genre</th><th>Tag</th><th>Description</th><th>Status</th><th>Submission Date</th><th>Priority</th><th>Assistant Editor Approval</th><th>General Editor Approval</th><th>Senior Editor Approval</th><th>Approve</th><th>Deny</th><th>Request more information (Author)</th><th>Request more information (Assistant Editor)</th><th>Request more information (General Editor)</th></tr>";
     let url = "http://localhost:8080/SPMS/spform/editor/view";
     let response = await fetch(url,{
         headers : { 
@@ -17,38 +17,57 @@ async function getForms() {
     for (let form of result) {
         var row = table.insertRow(-1);
        // row.id = id_count;
+       var cell0 = row.insertCell();
+       createEditButton(cell0, async function edit() {
+            console.log("EDIT FORM BUTTON");
+            let se_title = prompt("Input a new title, or leave blank to keep it the same.");
+            let se_tag_line = prompt("Input a new tag line, or leave blank to keep it the same.");
+            let se_end_date = prompt("Input a new completion date, or leave blank to keep it the same.", "dd-mm-yyyy");
+            var mydate = "";
+            if (se_end_date != "" && se_end_date != "dd-mm-yyyy") {
+                var parts =se_end_date.split('-');
+                console.log("parts: "+parts);
+                if (parts.length == 3 && parts[0] < 32 && parts[1] < 13) { //check proper date formatting
+                    mydate = new Date(parts[2], parts[1] - 1, parts[0]); 
+                    //mydate = parts[2] + "-" + parts[1] + "-" + parts[0];
+                } 
+                
+            }
+            console.log("MY DATE: "+mydate);
+            sendEdit(form.id, se_title, se_tag_line, mydate);
+       })
         
 
-        var cell1 = row.insertCell(0);
+        var cell1 = row.insertCell();
         cell1.innerHTML = form.author_first;
-        var cell2 = row.insertCell(1);
+        var cell2 = row.insertCell();
         cell2.innerHTML = form.author_last;
-        var cell3 = row.insertCell(2);
+        var cell3 = row.insertCell();
         cell3.innerHTML = form.title;
-        var cell4 = row.insertCell(3);
+        var cell4 = row.insertCell();
         cell4.innerHTML = form.end_date;
-        var cell5 = row.insertCell(4);
+        var cell5 = row.insertCell();
         cell5.innerHTML = form.story_type.type;
-        var cell6 = row.insertCell(5);
+        var cell6 = row.insertCell();
         cell6.innerHTML = form.genre.name;
-        var cell7 = row.insertCell(6);
+        var cell7 = row.insertCell();
         cell7.innerHTML = form.tag_line;
-        var cell8 = row.insertCell(7);
+        var cell8 = row.insertCell();
         cell8.innerHTML = form.description;
-        var cell9 = row.insertCell(8);
+        var cell9 = row.insertCell();
         cell9.innerHTML = form.status;
-        var cell10 = row.insertCell(9);
+        var cell10 = row.insertCell();
         cell10.innerHTML = form.submit_date;
-        var cell11 = row.insertCell(10);
+        var cell11 = row.insertCell();
         cell11.innerHTML = form.priority;
-        var cell12 = row.insertCell(11);
+        var cell12 = row.insertCell();
         cell12.innerHTML = form.ae_approval;
-        var cell13 = row.insertCell(12);
+        var cell13 = row.insertCell();
         cell13.innerHTML = form.ge_approval;
-        var cell14 = row.insertCell(13);
+        var cell14 = row.insertCell();
         cell14.innerHTML = form.se_approval;
         // add buttons
-        var cell15 = row.insertCell(14);
+        var cell15 = row.insertCell();
         createApproveButton(cell15, async function approve() {
             console.log("APPROVE FUNCTION");
             let id = form.id
@@ -56,7 +75,7 @@ async function getForms() {
             sendApproval(id);
             
         })
-        var cell16 = row.insertCell(15);
+        var cell16 = row.insertCell();
         createDenyButton(cell16, async function deny() {
             console.log("DENY FUNCTION");
             let id = form.id
@@ -65,7 +84,7 @@ async function getForms() {
             sendDenial(id, reason);
             
         })
-        var cell17 = row.insertCell(16);
+        var cell17 = row.insertCell();
         createRequestButton(cell17, async function requestInfo() {
             console.log("REQUEST INFO FUNCTION");
             let id = form.id
@@ -74,16 +93,21 @@ async function getForms() {
             sendRequestInfo(id, info, 'author');
             
         })
-        var cell18 = row.insertCell(17);
-        createRequestButton(cell18, async function requestInfo() {
-            console.log("REQUEST INFO FUNCTION");
-            let id = form.id
-            console.log("Form id: "+id);
-            let info = prompt('Tell assistant editor what information you want:');
-            sendRequestInfo(id, info, 'ae');
-            
-        })
-        var cell19 = row.insertCell(18);
+        var cell18 = row.insertCell();
+        if (form.ae_id != null) {
+            createRequestButton(cell18, async function requestInfo() {
+                console.log("REQUEST INFO FUNCTION");
+                let id = form.id
+                console.log("Form id: "+id);
+                let info = prompt('Tell assistant editor what information you want:');
+                sendRequestInfo(id, info, 'ae');
+                
+            })
+        } else {
+            cell18.innerHTML = "No assistant editor for this form."
+        }
+        
+        var cell19 = row.insertCell();
         createRequestButton(cell19, async function requestInfo() {
             console.log("REQUEST INFO FUNCTION");
             let id = form.id
@@ -128,6 +152,17 @@ function createRequestButton(context, func) {
     request_btn.onclick = func;
     //resubmit_btn.onclick = resubmit(form.id, form.story_type.type);
     context.appendChild(request_btn);
+}
+function createEditButton(context, func) {
+    var edit_btn = document.createElement("button");
+
+    edit_btn.id = "edit_btn";
+    edit_btn.className = "btn";
+    edit_btn.type = "submit";
+    edit_btn.innerHTML = "Edit Form"
+    edit_btn.onclick = func;
+
+    context.appendChild(edit_btn);
 }
 async function sendApproval(form_id) {
     console.log("SEND APPROVAL");
@@ -180,7 +215,25 @@ async function sendRequestInfo(id, msg, target) {
     console.log(result);
     getForms();
 }
-
+async function sendEdit(form_id, title, tag, date) {
+    console.log("INSIDE sendEdit");
+    var req = {
+        id: form_id,
+        se_title: title,
+        se_tag_line: tag,
+        se_end_date: date
+    }
+    let url = "http://localhost:8080/SPMS/spform/edit";
+    let response = await fetch(url,{
+        method: 'POST',
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         },
+        body: JSON.stringify(req)});
+    let result = await response.json();
+    console.log(result);
+}
 function sortTable() {
     var table, i, x, y;
     table = document.getElementById("form_table");

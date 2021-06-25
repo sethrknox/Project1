@@ -9,7 +9,7 @@
     <script src="js/editor.js" async></script>
     <title>Editor</title>
 </head>
-<body>
+<body onload="getCommittees()">
     <div class="topnav">
         <button type="button" class="btn" id="hbtn">Home
         <button type="button" class="btn" id="view_btn">Manage Forms</button>
@@ -18,6 +18,8 @@
         <button type="button" class="btn" id="logout_btn">Logout</button>
     </div>
     <h2>EDITOR HOME PAGE</h2>
+    <h4>You are currently an editor for these genres:</h4>
+    <ul id="genres"></ul>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
 </html>

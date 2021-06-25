@@ -44,6 +44,17 @@ public class AuthorServlet extends HttpServlet{
 			System.out.println("End of Author login");
 			break;
 		}
+		case "/SPMS/author/register": {
+			Author au = gson.fromJson(request.getReader(), Author.class);
+			System.out.println(au);
+			boolean b = as.registerAuthor(au);
+			if (b) {
+				response.getWriter().append(gson.toJson("Success"));
+			} else {
+				response.sendError(418, "Username not available.");
+			}
+			break;
+		}
 		case "/SPMS/author/logout": {
 			session.invalidate();
 			String msg = "Logged out";

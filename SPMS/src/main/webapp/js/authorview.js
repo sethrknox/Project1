@@ -4,7 +4,7 @@ document.getElementById("draft_file").onblur = checkFile;
 async function getForms() {
     console.log("Getting forms");
     table = document.getElementById("form_table");
-    table.innerHTML = "<tr><th>First</th><th>Last</th><th>Title</th><th>Expected Completion</th><th>Type</th><th>Genre</th><th>Tag</th><th>Description</th><th>Status</th><th>Submission Date</th></tr>";
+    table.innerHTML = "<tr><th>First</th><th>Last</th><th>Title</th><th>Expected Completion</th><th>Type</th><th>Genre</th><th>Tag</th><th>Description</th><th>Status</th><th>Submission Date</th><th>Misc</th></tr>";
     let url = "http://localhost:8080/SPMS/spform/view";
     let response = await fetch(url,{
         headers : { 
@@ -93,6 +93,27 @@ async function getForms() {
             console.log("TIME TO SUBMIT DRAFT");
             var cell11 = row.insertCell(10);
             createFileButton(cell11, form.id)
+        } else if (form.se_edit == true) {
+            console.log("Approve/Deny edits");
+            var cell11 = row.insertCell(10);
+            createApproveButton(cell11, async function approve() {
+                console.log("IN approve edit function");
+                approveEdits(form.id);
+            })
+            createDenyButton(cell11, async function deny() {
+                console.log("IN deny edit function");
+                denyEdits(form.id);
+            })
+            // modify cell3, cell4, cell7 to show values editor wants
+            if (form.se_title != "") {
+                cell3.innerHTML = "<span>Original: " + form.title + "</span><br><span>Edited: " + form.se_title + "</span>"
+            }
+            if (form.se_end_date != null) {
+                cell4.innerHTML = "<span>Original: " + form.end_date + "</span><br><span>Edited: " + form.se_end_date + "</span>"
+            }
+            if (form.se_tag_line != "") {
+                cell7.innerHTML = "<span>Original: " + form.tag_line + "</span><br><span>Edited: " + form.se_tag_line + "</span>"
+            }
         }
         //id_count++;
 
@@ -138,8 +159,33 @@ function createFileButton(context, form_id) {
         let xhttp = new XMLHttpRequest();
         xhttp.open("POST", url);
         xhttp.send(fd);
+        alert("Draft submitted.")
     }
     context.appendChild(btn);
+}
+
+function createApproveButton(context, func) {
+    var approve_btn = document.createElement("button");
+    approve_btn.className = "btn";
+    approve_btn.type = "submit";
+    approve_btn.innerHTML = "Approve changes";
+    approve_btn.onclick = func;
+
+    context.appendChild(approve_btn);
+}
+
+function createDenyButton(context, func) {
+    var deny_btn = document.createElement("button");
+    deny_btn.className = "btn";
+    deny_btn.type = "submit";
+    deny_btn.innerHTML = "Deny changes";
+    deny_btn.onclick = func;
+
+    var msg = document.createElement("span");
+    msg.innerHTML = "Edits were made to your story pitch. Please approve or deny them."
+
+    context.appendChild(deny_btn);
+    context.appendChild(msg);
 }
 
 function checkFile() {
@@ -199,6 +245,36 @@ function updatePoints() {
 
 async function sendResubmitRequest(form_id) {
     let url = "http://localhost:8080/SPMS/spform/resubmit";
+    let response = await fetch(url,{
+        method: 'POST',
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         },
+        body: JSON.stringify(form_id)})
+    let result = await response.json();
+    console.log(result)
+    getForms();
+}
+
+async function approveEdits(form_id) {
+    let url = "http://localhost:8080/SPMS/spform/author/approve";
+  
+    let response = await fetch(url,{
+        method: 'POST',
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         },
+        body: JSON.stringify(form_id)})
+    let result = await response.json();
+    console.log(result)
+    getForms();
+}
+
+async function denyEdits(form_id) {
+    let url = "http://localhost:8080/SPMS/spform/author/deny";
+
     let response = await fetch(url,{
         method: 'POST',
         headers : { 

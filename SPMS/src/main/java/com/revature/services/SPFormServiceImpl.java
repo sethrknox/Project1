@@ -118,13 +118,13 @@ public class SPFormServiceImpl implements SPFormService {
 			Integer curr_year = curr_date.getYear();
 			Integer submit_day = submit_date.getDayOfYear();
 			Integer curr_day = curr_date.getDayOfYear();
-			if (submit_year < curr_year - 1) {
+			if (submit_year.compareTo(curr_year-1) < 0) {
 				highPriority = true;
-			} else if (submit_year == curr_year - 1) {
+			} else if (submit_year.compareTo(curr_year-1) == 0) {
 				if ((365 - submit_day) + curr_day > 7) {
 					highPriority = true;
 				}
-			} else if (submit_year == curr_year) {
+			} else if (submit_year.compareTo(curr_year) == 0) {
 				if (submit_day < curr_day - 7) {
 					highPriority = true;
 				}
@@ -262,6 +262,38 @@ public class SPFormServiceImpl implements SPFormService {
 				cost = 10;
 			}
 			adao.updatePoints(a.getId(), -cost, a.getPoints());
+		}
+		sdao.update(spf);
+	}
+
+	@Override
+	public void requestEdit(SPForm spf) {
+		// TODO Auto-generated method stub
+		SPForm temp = sdao.getById(spf.getId());
+		if (!"".equals(spf.getSe_title()) || !"".equals(spf.getSe_tag_line()) || null != spf.getSe_end_date()) {
+			temp.setSe_edit(true);
+		}
+		temp.setSe_title(spf.getSe_title());
+		temp.setSe_tag_line(spf.getSe_tag_line());
+		temp.setSe_end_date(spf.getSe_end_date());
+		sdao.update(temp);
+	}
+
+	@Override
+	public void updateEdits(Integer form_id, String string) {
+		// TODO Auto-generated method stub
+		SPForm spf = sdao.getById(form_id);
+		spf.setSe_edit(false);
+		if ("approve".equals(string)) {
+			if (!spf.getSe_title().isBlank()) {
+				spf.setTitle(spf.getSe_title());
+			}
+			if (!spf.getSe_tag_line().isBlank()) {
+				spf.setTag_line(spf.getSe_tag_line());
+			}
+			if (spf.getSe_end_date() != null) {
+				spf.setEnd_date(spf.getSe_end_date());
+			}
 		}
 		sdao.update(spf);
 	}

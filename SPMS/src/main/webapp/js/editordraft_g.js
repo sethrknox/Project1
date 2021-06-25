@@ -80,7 +80,7 @@ async function getForms() {
         var cell11 = row.insertCell(10);
         cell11.innerHTML = form.se_draft;
 
-        if (editor_id == form.ge_id.id && form.ge_draft == 'pending' && form.ae_draft != 'denied' && form.se_draft != 'denied') {
+        if (editor_id != form.ge_id.id && form.ge_draft == 'pending' && form.ae_draft != 'denied' && form.se_draft != 'denied') {
             var cell12 = row.insertCell(11);
             createApproveButton(cell12, async function approve() {
             console.log("APPROVE FUNCTION");

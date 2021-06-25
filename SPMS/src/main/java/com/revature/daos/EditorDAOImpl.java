@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,6 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.revature.beans.Editor;
+import com.revature.beans.Genre;
 import com.revature.utils.HibernateUtil;
 import com.revature.utils.JDBCConnection;
 
@@ -154,6 +157,29 @@ public class EditorDAOImpl implements EditorDAO {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public List<Genre> getCommittees(Integer id) {
+		// TODO Auto-generated method stub
+		List<Genre> committees = new ArrayList<Genre>();
+		String sql = "select c.genre from project1.committees c where c.editor_id = ?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Genre g = new Genre();
+				g.setName(rs.getString("genre"));
+				committees.add(g);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return committees;
 	}
 
 }

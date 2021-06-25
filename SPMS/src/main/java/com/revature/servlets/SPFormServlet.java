@@ -220,6 +220,32 @@ public class SPFormServlet extends HttpServlet{
 			response.getWriter().append(gson.toJson(reqs));
 			break;
 		}
+		case "/SPMS/spform/edit": {
+			System.out.println("SPform /edit");
+			ObjectMapper om = new ObjectMapper();
+			SPForm spf = om.readValue(request.getReader(), SPForm.class);
+			System.out.println(spf);
+			ss.requestEdit(spf);
+			response.getWriter().append(gson.toJson("sent author the edit request"));
+			break;
+			
+		}
+		case "/SPMS/spform/author/approve": {
+			System.out.println("SPForm /author/approve");
+			Integer form_id = gson.fromJson(request.getReader(), Integer.class);
+			System.out.println(form_id);
+			ss.updateEdits(form_id, "approve");
+			response.getWriter().append(gson.toJson("author approved changes"));
+			break;
+		}
+		case "/SPMS/spform/author/deny": {
+			System.out.println("SPForm /author/deny");
+			Integer form_id = gson.fromJson(request.getReader(), Integer.class);
+			System.out.println(form_id);
+			ss.updateEdits(form_id, "deny");
+			response.getWriter().append(gson.toJson("author denied changes"));
+			break;
+		}
 		default: {
 			System.out.println("SPForm default");
 			response.sendError(418, "Not implemented yet.");

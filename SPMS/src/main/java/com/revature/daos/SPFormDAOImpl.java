@@ -240,11 +240,13 @@ public class SPFormDAOImpl implements SPFormDAO {
 			break;
 		}
 		case "general": {
-			String sql = "select * from (select s.id from project1.spforms s left join project1.committees c on s.genre != c.genre where s.status = 'pending' and s.ae_approval = 'approved' and s.ge_approval = 'pending' and s.priority = 'high' and c.editor_id = ?) as foo group by foo.id";
+			//String sql = "select * from (select s.id from project1.spforms s left join project1.committees c on s.genre != c.genre where s.status = 'pending' and s.ae_approval = 'approved' and s.ge_approval = 'pending' and s.priority = 'high' and c.editor_id = ?) as foo group by foo.id";
+			String sql = "(select s.id from project1.spforms s left join project1.committees c on s.genre != c.genre where s.status = 'pending' and s.ae_approval = 'approved' and s.ge_approval = 'pending' and s.priority = 'high' and c.editor_id = ?) except (select s.id from project1.spforms s left join project1.committees c on s.genre = c.genre where s.status = 'pending' and s.ae_approval = 'approved' and s.ge_approval = 'pending' and s.priority = 'high' and c.editor_id = ?)";
 			
 			try {
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ps.setInt(1, id);
+				ps.setInt(2, id);
 				ResultSet rs = ps.executeQuery();
 				
 				if (rs.next()) { // check for high priority forms first
@@ -255,9 +257,11 @@ public class SPFormDAOImpl implements SPFormDAO {
 						forms.add(sp);
 					}
 				} else { // get low priority forms
-					sql = "select * from (select s.id from project1.spforms s left join project1.committees c on s.genre != c.genre where s.status = 'pending' and s.ae_approval = 'approved' and s.ge_approval = 'pending' and c.editor_id = ?) as foo group by foo.id";
+					//sql = "select * from (select s.id from project1.spforms s left join project1.committees c on s.genre != c.genre where s.status = 'pending' and s.ae_approval = 'approved' and s.ge_approval = 'pending' and c.editor_id = ?) as foo group by foo.id";
+					sql = "(select s.id from project1.spforms s left join project1.committees c on s.genre != c.genre where s.status = 'pending' and s.ae_approval = 'approved' and s.ge_approval = 'pending' and c.editor_id = ?) except (select s.id from project1.spforms s left join project1.committees c on s.genre = c.genre where s.status = 'pending' and s.ae_approval = 'approved' and s.ge_approval = 'pending' and c.editor_id = ?)";
 					ps = conn.prepareStatement(sql);
 					ps.setInt(1, id);
+					ps.setInt(2, id);
 					rs = ps.executeQuery();
 					while (rs.next()) {
 						SPForm sp = getById(rs.getInt("id"));
@@ -299,7 +303,7 @@ public class SPFormDAOImpl implements SPFormDAO {
 	@Override
 	public boolean hasAssistants(String genre) {
 		// TODO Auto-generated method stub
-		String sql = "select * from project1.committees where genre = ?";
+		String sql = "select * from project1.committees c left join project1.editors e on c.editor_id = e.id where e.type = 'assistant' and c.genre = ?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, genre);
@@ -356,12 +360,13 @@ public class SPFormDAOImpl implements SPFormDAO {
 			break;
 		}
 		case "general": {
-			String sql = "select s.id from project1.spforms s left join project1.committees c on s.genre = c.genre where s.draft is not null and s.status = 'pending' and c.editor_id = ? union select s.id from project1.spforms s left join project1.committees c on s.genre != c.genre where s.draft is not null and s.status = 'pending' and c.editor_id = ?";
+			String sql = "select s.id from project1.spforms s left join project1.committees c on s.genre = c.genre where s.draft is not null and s.status = 'pending' and c.editor_id = ? union select s.id from project1.spforms s left join project1.committees c on s.genre != c.genre where s.draft is not null and s.status = 'pending' and s.ge_id = ? and c.editor_id = ?";
 			
 			try {
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ps.setInt(1, id);
 				ps.setInt(2, id);
+				ps.setInt(3, id);
 				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {

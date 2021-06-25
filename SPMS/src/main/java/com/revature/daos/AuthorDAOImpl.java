@@ -151,16 +151,16 @@ public class AuthorDAOImpl implements AuthorDAO {
 	@Override
 	public boolean usernameExists(String username) {
 		// TODO Auto-generated method stub
-		String sql = "(select username from project1.authors) union (select username from project1.editors)";
+		String sql = "(select a.username from project1.authors a where a.username = ?) union (select e.username from project1.editors e where e.username = ?)";
 		
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ps.setString(2, username);
 			ResultSet rs = ps.executeQuery();
 			
-			while(rs.next()) {
-				if (rs.getString("username").equals(username)) {
-					return true;
-				}
+			if(rs.next()) {
+				return true;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
