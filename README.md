@@ -4,7 +4,7 @@
 
 SPMS, or Story Pitch Management System, is a full-stack web application that allows authors to submit story pitches to a publishing company. The pitch can then be approved or rejected by editors at various levels and in various committees based on genre and story length before the author is able to submit a draft of the story. The authors are able to track the status of their pitches throughout the process.
 
-## Using the Swag shop as a User 
+## Using the SPMS as a User 
 
 ---
 
@@ -19,9 +19,11 @@ SPMS, or Story Pitch Management System, is a full-stack web application that all
 
 Upon Login the user will be at a blank home page. From this page a user can navigate to their forms page, a form creation page, or their request page. The forms page will display all previous submitted story pitches along with their information. A new form can be submitted on the creation page. A user can manage information requests from editors in their request management tab.
 
-## Using the Swag shop as an Admin
+## Using the SPMS as an Admin
 
-### Additional Admin Functions
+---
+
+### Login to pre-created admin account to get started.
 
 ---
 
