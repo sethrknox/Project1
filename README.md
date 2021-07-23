@@ -6,20 +6,31 @@ Here goes your awesome project description!
 
 ## Technologies Used
 
-* Tech 1 - version 1.0
-* Tech 2 - version 2.0
-* Tech 3 - version 3.0
+> ### Frameworks
+> 
+- [Bootstrap](https://getbootstrap.com/)
+- [Hibernate](https://hibernate.org/orm/documentation/5.4/)
+
+> ### Cloud Services
+
+- [AWS](https://aws.amazon.com/)
+  - RDS
+
+> ### Core Technologies
+
+- [Java 8](https://docs.oracle.com/javase/8/docs/)
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- [JavaScript](https://devdocs.io/javascript/)
+
+> ### Database
+
+- [PostgreSQL](https://www.postgresql.org/docs/)
 
 ## Features
 
-List of features ready and TODOs for future development
 * Awesome feature 1
 * Awesome feature 2
 * Awesome feature 3
-
-To-do list:
-* Wow improvement to be done 1
-* Wow improvement to be done 2
 
 ## Getting Started
    
