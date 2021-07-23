@@ -2,7 +2,7 @@
 
 ## Project Description
 
-Here goes your awesome project description!
+SPMS, or Story Pitch Management System, is a full-stack web application that allows authors to submit story pitches to a publishing company. The pitch can then be approved or rejected by editors at various levels and in various committees based on genre and story length before the author is able to submit a draft of the story. The authors are able to track the status of their pitches throughout the process.
 
 ## Technologies Used
 
