@@ -59,4 +59,3 @@ An admin will land on the home page after login which displays the genres commit
 - Create a new Tomcat server on localhost, and move the project into the server's configuration
 - Run the server
 - Go to http://localhost:8080/SPMS
-- The application should be running
